@@ -1,0 +1,308 @@
+[
+	{
+	  "Category": "0",
+	  "Word": "if",
+	  "IsMember" : "false"
+	},
+	{
+		"Category" : "0",
+		"Word": "function",
+		"IsMember" : "false"
+	},
+	{
+		"Category" : "0",
+		"Word": "var",
+		"IsMember" : "false"
+	},
+	{
+		"Category" : "0",
+		"Word": "let",
+		"IsMember" : "false"
+	},
+	{
+		"Category" : "0",
+		"Word": "for",
+		"IsMember" : "false"
+	},
+	{
+		"Category" : "0",
+		"Word": "in",
+		"IsMember" : "false"
+	},
+	{
+		"Category" : "0",
+		"Word": "of",
+		"IsMember" : "false"
+	},
+	{
+		"Category" : "0",
+		"Word": "while",
+		"IsMember" : "false"
+	},
+	{
+		"Category" : "3",
+		"Word": "console",
+		"IsMember" : "false"
+	},
+	{
+		"Category" : "3",
+		"Word": "memory",
+		"IsMember" : "false"
+	},
+	{
+		"Category" : "3",
+		"Word": "winapi",
+		"IsMember" : "false"
+	},
+	{
+		"Category" : "3",
+		"Word": "asm",
+		"IsMember" : "false"
+	},
+	{
+		"Category" : "3",
+		"Word": "protection",
+		"IsMember" : "false"
+	},
+	{
+		"Category" : "3",
+		"Word": "callingConvention",
+		"IsMember" : "false"
+	},
+	{
+		"Category" : "1",
+		"Word": "console.alloc",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "console.free",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "console.setTitle",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "console.log",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.alloc",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.free",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.writeInt",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.readInt",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.writeFloat",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.readFloat",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.writeBool",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.readBool",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.writeDouble",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.readDouble",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.writeString",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.readString",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.getProtection",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.setProtection",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "asm.writeShellcode",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "asm.placeShellcodeHook",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "asm.placeCallbackHook",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "asm.placeManualHook",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "asm.initializeCall",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "winapi.getModules",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "winapi.getModule",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "winapi.getExports",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "winapi.getExport",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "3",
+		"Word": "protection.EXECUTE",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "3",
+		"Word": "protection.EXECUTE_READ",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "3",
+		"Word": "protection.EXECUTE_READWRITE",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "3",
+		"Word": "protection.EXECUTE_WRITECOPY",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "3",
+		"Word": "protection.NOACCESS",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "3",
+		"Word": "protection.READONLY",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "3",
+		"Word": "protection.READWRITE",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "3",
+		"Word": "protection.WRITECOPY",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "3",
+		"Word": "callingConvention.stdcall",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "3",
+		"Word": "callingConvention.cdecl",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "3",
+		"Word": "callingConvention.thiscall",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "any.toString",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.writeIntArray",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.writeFloatArray",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.writeBoolArray",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.writeDoubleArray",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "3",
+		"Word": "any.name",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "3",
+		"Word": "any.path",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "3",
+		"Word": "any.address",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "any.call",
+		"IsMember" : "true"
+	},
+	
+]
