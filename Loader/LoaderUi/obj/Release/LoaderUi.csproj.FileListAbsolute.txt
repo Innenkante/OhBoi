@@ -1,0 +1,9 @@
+C:\Users\Arnie\Desktop\OhBoi\Builds\Release\LoaderUi.exe.config
+C:\Users\Arnie\Desktop\OhBoi\Builds\Release\LoaderUi.exe
+C:\Users\Arnie\Desktop\OhBoi\Builds\Release\LoaderUi.pdb
+C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\Release\LoaderUi.Properties.Resources.resources
+C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\Release\LoaderUi.Ui.resources
+C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\Release\LoaderUi.csproj.GenerateResource.Cache
+C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\Release\LoaderUi.csproj.CoreCompileInputs.cache
+C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\Release\LoaderUi.exe
+C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\Release\LoaderUi.pdb
