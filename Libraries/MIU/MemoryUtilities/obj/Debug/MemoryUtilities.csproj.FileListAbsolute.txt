@@ -1,0 +1,14 @@
+C:\Users\Mark\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\obj\Debug\MemoryUtilities.csproj.CoreCompileInputs.cache
+C:\Users\Mark\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\bin\Debug\MemoryUtilities.dll
+C:\Users\Mark\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\bin\Debug\MemoryUtilities.pdb
+C:\Users\Mark\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\obj\Debug\MemoryUtilities.dll
+C:\Users\Mark\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\obj\Debug\MemoryUtilities.pdb
+C:\Users\Mark\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\obj\Debug\MemoryUtilities.csprojResolveAssemblyReference.cache
+C:\Users\Mark\Desktop\OhBoi\Builds\Debug\MemoryUtilities.dll
+C:\Users\Arnie\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\obj\Debug\MemoryUtilities.csproj.CoreCompileInputs.cache
+C:\Users\Arnie\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\obj\Debug\MemoryUtilities.dll
+C:\Users\Arnie\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\obj\Debug\MemoryUtilities.pdb
+C:\Users\Mark\Desktop\OhBoi\Builds\Debug\MemoryUtilities.pdb
+C:\Users\Arnie\Desktop\OhBoi\Builds\Debug\MemoryUtilities.dll
+C:\Users\Arnie\Desktop\OhBoi\Builds\Debug\MemoryUtilities.pdb
+C:\Users\Arnie\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\obj\Debug\MemoryUtilities.csprojResolveAssemblyReference.cache
