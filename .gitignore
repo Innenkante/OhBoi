@@ -8,3 +8,7 @@
 *.pdb
 
 *.ilk
+
+Libraries/Capstone/
+
+Libraries/Keystone/
