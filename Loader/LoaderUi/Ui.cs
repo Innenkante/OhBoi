@@ -40,19 +40,6 @@ namespace LoaderUi
             };
         }
 
-        
-
-        Process GetSelectedProcess()
-        {
-            var selectedProcess = Process.GetProcesses().ToList().Find(x => true);
-
-            if (selectedProcess != null)
-                return selectedProcess;
-            else
-                return null;
-
-        }
-
         private void Ui_Load(object sender, EventArgs e)
         {
             AutoComplete.TargetControlWrapper = new ScintillaWrapper(CodeArea);
@@ -130,7 +117,8 @@ namespace LoaderUi
             }
 
             File.WriteAllText(Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi.js", CodeArea.Text);
-            
+
+            Log("File saved...");
         }
 
         private void RunExecutable_Click(object sender, EventArgs e)
