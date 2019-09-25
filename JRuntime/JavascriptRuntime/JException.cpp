@@ -9,7 +9,7 @@ PVOID JException::Internal::nativeHandlerHandle;
 void JException::AddHandler(JsValueRef handler)
 {
 	Internal::callback = handler;
-	Internal::nativeHandlerHandle = AddVectoredExceptionHandler(0, (PVECTORED_EXCEPTION_HANDLER)Internal::NativeExceptionHandler);
+	Internal::nativeHandlerHandle = AddVectoredExceptionHandler(1, (PVECTORED_EXCEPTION_HANDLER)Internal::NativeExceptionHandler);
 	Internal::isRegisterd = true;
 }
 
@@ -29,10 +29,10 @@ long __stdcall JException::Internal::NativeExceptionHandler(_EXCEPTION_POINTERS 
 
 	JObject jException("exception");
 
-	if (exception.ExceptionRecord->ExceptionCode == EXCEPTION_ACCESS_VIOLATION)
-	{
-		return 0;
-	}
+	//if (exception.ExceptionRecord->ExceptionCode == EXCEPTION_ACCESS_VIOLATION)
+	//{
+	//	return 0;
+	//}
 
 	jException.AttachProperty(JProperty("address", Globals::ValueParser->ToJsValue<int>((int)exception.ExceptionRecord->ExceptionAddress)));
 	jException.AttachProperty(JProperty("code", Globals::ValueParser->ToJsValue<int>((int)exception.ExceptionRecord->ExceptionCode)));
