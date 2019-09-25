@@ -12,3 +12,19 @@
 Libraries/Capstone/
 
 Libraries/Keystone/
+
+*.tlog
+
+*.obj
+
+*.log
+
+*.idb
+
+*.cache
+
+*.pch
+
+*.dll
+
+*.exe
