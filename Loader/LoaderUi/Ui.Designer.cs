@@ -84,7 +84,6 @@
             this.LogTextbox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.LogTextbox.CustomButton.UseSelectable = true;
             this.LogTextbox.CustomButton.Visible = false;
-            this.LogTextbox.Enabled = false;
             this.LogTextbox.Lines = new string[0];
             this.LogTextbox.Location = new System.Drawing.Point(23, 427);
             this.LogTextbox.MaxLength = 32767;

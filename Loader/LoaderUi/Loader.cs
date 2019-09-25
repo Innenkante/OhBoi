@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,15 +27,15 @@ namespace LoaderUi
 
         private bool InjectIntoRunningProcess(int processId)
         {
-            if (!IsChakraCoreCopied())
+            if (!IsFileCopied("ChakraCore.dll"))
             {
-                if (!CopyChakraCore())
+                if (!CopyToProcessDirectory("ChakraCore.dll"))
                     return false;
             }
 
-            if(!IsJavaScriptRuntimeCopied())
+            if(!IsFileCopied("JavascriptRuntime.dll"))
             {
-                if (!CopyJavascriptRuntime())
+                if (!CopyToProcessDirectory("JavascriptRuntime.dll"))
                     return false;
             }
 
@@ -66,14 +67,14 @@ namespace LoaderUi
 
         public void RedirectThread()
         {
-            if (!IsChakraCoreCopied())
+            if (!IsFileCopied("ChakraCore.dll"))
             {
-                CopyChakraCore();    
+                CopyToProcessDirectory("ChakraCore.dll"); 
             }
 
-            if (!IsJavaScriptRuntimeCopied())
+            if (!IsFileCopied("JavascriptRuntime.dll"))
             {
-                CopyJavascriptRuntime();
+                CopyToProcessDirectory("JavascriptRuntime.dll");
             }
 
             var process = System.Diagnostics.Process.GetProcessById(_runningProcessPid);
@@ -164,16 +165,24 @@ namespace LoaderUi
             return true;
         }
 
-        private bool IsChakraCoreCopied()
+        private string GetHash(string file)
         {
-            return File.Exists(Path.GetDirectoryName(_selectedProcessPath) + "\\ChakraCore.dll");
+            using (var md5 = MD5.Create())
+            {
+                using (var stream = File.OpenRead(file))
+                {
+                    var hash = md5.ComputeHash(stream);
+
+                    return BitConverter.ToString(hash);
+                }
+            }
         }
 
-        private bool CopyChakraCore()
+        private bool CopyToProcessDirectory(string file)
         {
             try
             {
-                File.Copy(Path.GetDirectoryName(Application.ExecutablePath) + "\\ChakraCore.dll", Path.GetDirectoryName(_selectedProcessPath) + "\\ChakraCore.dll", true);
+                File.Copy(Path.GetDirectoryName(Application.ExecutablePath) + "\\" + file, Path.GetDirectoryName(_selectedProcessPath) + "\\" + file, true);
             }
             catch (Exception e)
             {
@@ -182,21 +191,14 @@ namespace LoaderUi
             return true;
         }
 
-        private bool IsJavaScriptRuntimeCopied()
+        private bool IsFileCopied(string file)
         {
-            return File.Exists(Path.GetDirectoryName(_selectedProcessPath) + "\\JavascriptRuntime.dll");
-        }
-
-        private bool CopyJavascriptRuntime()
-        {
-            try
-            {
-                File.Copy(Path.GetDirectoryName(Application.ExecutablePath) + "\\JavascriptRuntime.dll", Path.GetDirectoryName(_selectedProcessPath) + "\\JavascriptRuntime.dll", true);
-            }
-            catch (Exception e)
-            {
+            if (!File.Exists(Path.GetDirectoryName(_selectedProcessPath) + "\\" + file))
                 return false;
-            }
+
+            if (GetHash(Path.GetDirectoryName(Application.ExecutablePath) + "\\" + file) != GetHash(Path.GetDirectoryName(_selectedProcessPath) + "\\" + file))
+                return false;
+
             return true;
         }
     }

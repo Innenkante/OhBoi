@@ -33,7 +33,14 @@ namespace LoaderUi
 
             new Editor(CodeArea, AutoComplete).Initialize();
 
+
+            Paint += (s, e) =>
+            {
+                e.Graphics.FillRectangle(new System.Drawing.Drawing2D.HatchBrush(System.Drawing.Drawing2D.HatchStyle.Percent50, TransparencyKey), DisplayRectangle);
+            };
         }
+
+        
 
         Process GetSelectedProcess()
         {
