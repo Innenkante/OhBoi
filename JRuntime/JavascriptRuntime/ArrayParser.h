@@ -11,7 +11,7 @@ public:
 	template<class T>
 	std::vector<T> ToType(JsValueRef jsValue);
 	template<class T>
-	JsValueRef* ToJsValue(std::vector<T> value);
+	JsValueRef ToJsValue(std::vector<T> value);
 };
 
 template<class T>
@@ -39,14 +39,14 @@ inline std::vector<T> CollectionParser::ToType(JsValueRef jsValue)
 }
 
 template<class T>
-inline JsValueRef * CollectionParser::ToJsValue(std::vector<T> value)
+inline JsValueRef CollectionParser::ToJsValue(std::vector<T> value)
 {
 	JsValueRef jsArray;
 	JsCreateArray(value.size(), &jsArray);
 
 	for (int i = 0; i < value.size(); i++)
 	{
-		JsSetIndexedProperty(jsArray, Globals::ValueParser->ToJsValue(i), Globals::ValueParser->ToJsValue<T>(value[i]));
+		JsSetIndexedProperty(jsArray, Globals::ValueParser->ToJsValue<int>(i), Globals::ValueParser->ToJsValue<T>(value[i]));
 	}
 
 	return jsArray;

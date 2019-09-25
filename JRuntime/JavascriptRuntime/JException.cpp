@@ -29,11 +29,6 @@ long __stdcall JException::Internal::NativeExceptionHandler(_EXCEPTION_POINTERS 
 
 	JObject jException("exception");
 
-	//if (exception.ExceptionRecord->ExceptionCode == EXCEPTION_ACCESS_VIOLATION)
-	//{
-	//	return 0;
-	//}
-
 	jException.AttachProperty(JProperty("address", Globals::ValueParser->ToJsValue<int>((int)exception.ExceptionRecord->ExceptionAddress)));
 	jException.AttachProperty(JProperty("code", Globals::ValueParser->ToJsValue<int>((int)exception.ExceptionRecord->ExceptionCode)));
 

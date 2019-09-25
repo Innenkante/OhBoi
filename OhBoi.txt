@@ -48,6 +48,14 @@ The runtime has a bunch of diffrent exported object and functions:
 	* `writeBoolArray(0x1234,[true,false,true,false]);`
 * writeDoubleArray(address,value)
 	* `writeDoubleArray(0x1234,[1.1,1.2,1.3,1.4]);`
+* array readIntArray(address,value);
+	* `readIntArray(0x1234,4);`
+* array readFloatArray(address,value)
+	* `readFloatArray(0x1234,4);`
+* array readBoolArray(address,value)
+	* `readBoolArray(0x1234,4);`
+* array readDoubleArray(address,value)
+	* `readDoubleArray(0x1234,4);`
 * int alloc(size)
 	* `let allocatedMemory = memory.alloc(1024);`
 * free(address, size)

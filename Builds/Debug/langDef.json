@@ -284,6 +284,26 @@
 		"Word": "memory.writeDoubleArray",
 		"IsMember" : "true"
 	},
+		{
+		"Category" : "1",
+		"Word": "memory.readIntArray",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.readFloatArray",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.readBoolArray",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "memory.readDoubleArray",
+		"IsMember" : "true"
+	},
 	{
 		"Category" : "3",
 		"Word": "any.name",
@@ -303,6 +323,16 @@
 		"Category" : "1",
 		"Word": "any.call",
 		"IsMember" : "true"
+	},
+	{
+		"Category" : "3",
+		"Word": "true",
+		"IsMember" : "false"
+	},
+	{
+		"Category" : "3",
+		"Word": "false",
+		"IsMember" : "false"
 	},
 	
 ]

@@ -153,7 +153,73 @@ namespace JExports
 			return 0;
 		}
 
+		JsValueRef CALLBACK JReadIntArray(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
+		{
+			auto address = Globals::ValueParser->ToType<int>(arguments[1]);
+			auto count  = Globals::ValueParser->ToType<int>(arguments[2]);
+			auto elements = new int[count];
 
+			memcpy(elements, (int*)address, count * sizeof(int));
+
+			std::vector<int> tmp; 
+			tmp.assign(elements, elements + count);
+
+			delete[] elements;
+
+ 			return Globals::ArrayParser->ToJsValue<int>(tmp);
+		}
+
+		JsValueRef CALLBACK JReadFloatArray(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
+		{
+			auto address = Globals::ValueParser->ToType<int>(arguments[1]);
+			auto count = Globals::ValueParser->ToType<int>(arguments[2]);
+			auto elements = new float[count];
+
+			memcpy(elements, (int*)address, count * sizeof(float));
+
+			std::vector<float> tmp;
+			tmp.assign(elements, elements + count);
+
+			delete[] elements;
+
+			return Globals::ArrayParser->ToJsValue<float>(tmp);
+		}
+
+		JsValueRef CALLBACK JReadBoolArray(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
+		{
+			auto address = Globals::ValueParser->ToType<int>(arguments[1]);
+			auto count = Globals::ValueParser->ToType<int>(arguments[2]);
+			auto elements = new bool[count];
+
+			memcpy(elements, (int*)address, count * sizeof(bool));
+
+			std::vector<bool> tmp;
+			tmp.assign(elements, elements + count);
+
+			delete[] elements;
+
+			return Globals::ArrayParser->ToJsValue<bool>(tmp);
+		}
+
+		JsValueRef CALLBACK JReadDoubleArray(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
+		{
+			auto address = Globals::ValueParser->ToType<int>(arguments[1]);
+			auto count = Globals::ValueParser->ToType<int>(arguments[2]);
+			auto elements = new double[count];
+
+			memcpy(elements, (int*)address, count * sizeof(double));
+
+			std::vector<double> tmp;
+			tmp.assign(elements, elements + count);
+
+			delete[] elements;
+
+			return Globals::ArrayParser->ToJsValue<double>(tmp);
+		}
+
+		
+
+		
 
 
 
@@ -511,21 +577,27 @@ namespace JExports
 		console.AttachFunction(JFunction("free", JConsole::JFreeConsole));
 		console.AttachFunction(JFunction("log", JConsole::JLog));
 
-		memory.AttachFunction(JFunction("readInt", JMemory::JReadInt));
 		memory.AttachFunction(JFunction("writeInt", JMemory::JWriteInt));
-		memory.AttachFunction(JFunction("readBool", JMemory::JWriteBool));
 		memory.AttachFunction(JFunction("writeBool", JMemory::JReadBool));
-		memory.AttachFunction(JFunction("readString", JMemory::JReadString));
 		memory.AttachFunction(JFunction("writeString", JMemory::JWriteString));
-		memory.AttachFunction(JFunction("readFloat", JMemory::JReadFloat));
 		memory.AttachFunction(JFunction("writeFloat", JMemory::JWriteFloat));
-		memory.AttachFunction(JFunction("readDouble", JMemory::JReadDouble));
 		memory.AttachFunction(JFunction("writeDouble", JMemory::JWriteDouble));
+
+		memory.AttachFunction(JFunction("readInt", JMemory::JReadInt));
+		memory.AttachFunction(JFunction("readBool", JMemory::JWriteBool));
+		memory.AttachFunction(JFunction("readString", JMemory::JReadString));
+		memory.AttachFunction(JFunction("readFloat", JMemory::JReadFloat));
+		memory.AttachFunction(JFunction("readDouble", JMemory::JReadDouble));
 
 		memory.AttachFunction(JFunction("writeIntArray", JMemory::JWriteIntArray));
 		memory.AttachFunction(JFunction("writeFloatArray", JMemory::JWriteFloatArray));
 		memory.AttachFunction(JFunction("writeBoolArray", JMemory::JWriteBoolArray));
 		memory.AttachFunction(JFunction("writeDoubleArray", JMemory::JWriteDoubleArray));
+		
+		memory.AttachFunction(JFunction("readIntArray", JMemory::JReadIntArray));
+		memory.AttachFunction(JFunction("readFloatArray", JMemory::JReadFloatArray));
+		memory.AttachFunction(JFunction("readBoolArray", JMemory::JReadBoolArray));
+		memory.AttachFunction(JFunction("readDoubleArray", JMemory::JReadDoubleArray));
 
 		memory.AttachFunction(JFunction("alloc", JMemory::JVirtualAlloc));
 		memory.AttachFunction(JFunction("free", JMemory::JVirtualFree));
