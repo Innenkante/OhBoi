@@ -397,20 +397,15 @@ namespace JExports
 
 			JException::AddHandler(callback);
 
-			return 0;
-			
+			return 0;	
 		}
 
 		JsValueRef CALLBACK JRemoveExceptionHandler(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
 		{
-			auto callback = arguments[1]; //the callback as [0] is "this"
-
 			JException::RemoveHandler();
 
 			return 0;
 		}
-
-		
 	}
 
 	namespace JAsm
@@ -625,7 +620,9 @@ namespace JExports
 		winapi.AttachFunction(JFunction("getModule", JWinApi::JGetModule));
 		winapi.AttachFunction(JFunction("getExports", JWinApi::JGetExports));
 		winapi.AttachFunction(JFunction("getExport", JWinApi::JGetExport));
+
 		winapi.AttachFunction(JFunction("addExceptionHandler", JWinApi::JAddExceptionHandler));
+		winapi.AttachFunction(JFunction("removeExceptionHandler", JWinApi::JRemoveExceptionHandler));
 
 		callingConvention.AttachProperty(JProperty("stdcall", Globals::ValueParser->ToJsValue<int>(0)));
 		callingConvention.AttachProperty(JProperty("cdecl", Globals::ValueParser->ToJsValue<int>(1)));

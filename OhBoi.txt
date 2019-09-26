@@ -111,6 +111,19 @@ for(var export in winapi.getExports("kernel32.dll"))
 let loadLib = winapi.getExport("kernel32.dll","LoadLibraryA");
 console.log(loadLib.name + "::" + loadLib.address.toString(16));
 ```
+* addExceptionHandler(exceptionHandler);
+```
+function exceptionHandler(exception) {
+	console.log(exception.location.toString(16) + "::" + exception.address.toString(16) + "::" + exception.operation + "::" + exception.type);
+}
+winapi.addExceptionHandler(exceptionHandler);
+```
+* removeExceptionHandler(exceptionHandler);
+```
+removeExceptionHandler(exceptionHandler);
+```
+
+
 
 # Types
 
