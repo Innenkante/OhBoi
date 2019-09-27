@@ -334,5 +334,25 @@
 		"Word": "false",
 		"IsMember" : "false"
 	},
+	{
+		"Category" : "1",
+		"Word": "winapi.addExceptionHandler",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "winapi.removeExceptionHandler",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "3",
+		"Word": "JSON",
+		"IsMember" : "true"
+	},
+	{
+		"Category" : "1",
+		"Word": "stringify",
+		"IsMember" : "true"
+	},
 	
 ]

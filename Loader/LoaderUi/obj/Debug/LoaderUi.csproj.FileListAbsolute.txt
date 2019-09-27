@@ -17,5 +17,4 @@ C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\Debug\LoaderUi.pdb
 C:\Users\Arnie\Desktop\OhBoi\Builds\Debug\LoaderUi.exe.config
 C:\Users\Arnie\Desktop\OhBoi\Builds\Debug\LoaderUi.exe
 C:\Users\Arnie\Desktop\OhBoi\Builds\Debug\LoaderUi.pdb
-C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\Debug\LoaderUi.csprojAssemblyReference.cache
 C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\Debug\LoaderUi.csproj.CopyComplete

@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Editor.cs" />
+    <Compile Include="Keywords.cs"/>
     <Compile Include="Loader.cs" />
     <Compile Include="Ui.cs">
       <SubType>Form</SubType>
