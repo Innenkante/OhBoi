@@ -70,3 +70,7 @@ JRuntime/JavascriptRuntime/Debug/jexception.nativecodeanalysis.xml
 JRuntime/JavascriptRuntime/Debug/jmanualcallback.nativecodeanalysis.xml
 
 JRuntime/JavascriptRuntime/Debug/jruntime.nativecodeanalysis.xml
+
+*.iobj
+
+*.ipdb

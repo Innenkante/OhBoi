@@ -2,12 +2,12 @@
 #include "Globals.h"
 #include "JException.h"
 
-JsValueRef JException::Internal::callback;
-bool JException::Internal::isRegisterd;
-PVOID JException::Internal::nativeHandlerHandle;
+JsValueRef JException::callback = 0;
+bool JException::isHandlerRegistered = false;
+HANDLE JException::exceptionHandler = 0;
 
 
-JException::Internal::JsException::JsException(PEXCEPTION_POINTERS exception)
+JException::JException(PEXCEPTION_POINTERS exception)
 {
 	auto exceptionInfo = exception->ExceptionRecord->ExceptionInformation;
 
@@ -18,7 +18,7 @@ JException::Internal::JsException::JsException(PEXCEPTION_POINTERS exception)
 	Target= exceptionInfo[1];
 }
 
-std::string JException::Internal::JsException::TranslateOperation(unsigned long operation)
+std::string JException::TranslateOperation(unsigned long operation)
 {
 	switch (operation)
 	{
@@ -33,7 +33,7 @@ std::string JException::Internal::JsException::TranslateOperation(unsigned long 
 	}
 }
 
-std::string JException::Internal::JsException::TranslateExceptionType(int code)
+std::string JException::TranslateExceptionType(int code)
 {
 	switch (code)
 	{
@@ -84,23 +84,21 @@ std::string JException::Internal::JsException::TranslateExceptionType(int code)
 
 
 
-
-
 void JException::AddHandler(JsValueRef handler)
 {
-	Internal::callback = handler;
-	Internal::nativeHandlerHandle = AddVectoredExceptionHandler(1, JException::Internal::NativeExceptionHandler);
-	Internal::isRegisterd = true;
+	callback = handler;
+	exceptionHandler = AddVectoredExceptionHandler(1, JException::NativeExceptionHandler);
+	isHandlerRegistered = true;
 }
 
 void JException::RemoveHandler()
 {
-	if(Internal::isRegisterd)
-		RemoveVectoredExceptionHandler(Internal::nativeHandlerHandle);
+	if(isHandlerRegistered)
+		RemoveVectoredExceptionHandler(exceptionHandler);
 }
 
 
-long __stdcall JException::Internal::NativeExceptionHandler(PEXCEPTION_POINTERS exception)
+long __stdcall JException::NativeExceptionHandler(PEXCEPTION_POINTERS exception)
 {
 	Globals::JavascriptRuntime->SetCurrentContext();
 
@@ -111,7 +109,7 @@ long __stdcall JException::Internal::NativeExceptionHandler(PEXCEPTION_POINTERS 
 
 	JObject jException("exception");
 
-	JsException jsException(exception);
+	JException jsException(exception);
 
 	jException.AttachProperty(JProperty("location", Globals::ValueParser->ToJsValue<int>(jsException.Thrower)));
 	jException.AttachProperty(JProperty("address", Globals::ValueParser->ToJsValue<int>(jsException.Target)));
@@ -120,7 +118,7 @@ long __stdcall JException::Internal::NativeExceptionHandler(PEXCEPTION_POINTERS 
 
 	params.push_back(jException.Value);
 
-	JsCallFunction(Internal::callback, params.data(), params.size(), 0);
+	JsCallFunction(callback, params.data(), params.size(), 0);
 
 	Globals::JavascriptRuntime->DisposeContext();
 

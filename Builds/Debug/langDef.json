@@ -347,11 +347,11 @@
 	{
 		"Category" : "3",
 		"Word": "JSON",
-		"IsMember" : "true"
+		"IsMember" : "false"
 	},
 	{
 		"Category" : "1",
-		"Word": "stringify",
+		"Word": "JSON.stringify",
 		"IsMember" : "true"
 	},
 	

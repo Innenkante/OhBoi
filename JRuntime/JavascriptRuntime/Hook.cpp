@@ -101,6 +101,9 @@ std::string Hook::PrepareCallbackShellcode(JCallback* callback)
 	afterwards, if we pop eax;, the first param is at esp+4 again
 	*/
 
+	//TODO: Add shellcode for thiscall hooking
+
+
 	std::string shellcode = "push eax;";
 
 	for (int i = 0; i < callback->ParameterCount; i++)

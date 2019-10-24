@@ -1,0 +1,6 @@
+C:\Users\Arnie\Desktop\OhBoi\Builds\Debug\MemoryUtilities.dll
+C:\Users\Arnie\Desktop\OhBoi\Builds\Debug\MemoryUtilities.pdb
+C:\Users\Arnie\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\obj\x86\Debug\MemoryUtilities.csprojAssemblyReference.cache
+C:\Users\Arnie\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\obj\x86\Debug\MemoryUtilities.csproj.CoreCompileInputs.cache
+C:\Users\Arnie\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\obj\x86\Debug\MemoryUtilities.dll
+C:\Users\Arnie\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\obj\x86\Debug\MemoryUtilities.pdb

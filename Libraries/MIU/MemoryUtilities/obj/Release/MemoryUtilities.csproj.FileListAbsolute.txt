@@ -1,0 +1,6 @@
+C:\Users\Arnie\Desktop\OhBoi\Builds\Release\MemoryUtilities.dll
+C:\Users\Arnie\Desktop\OhBoi\Builds\Release\MemoryUtilities.pdb
+C:\Users\Arnie\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\obj\Release\MemoryUtilities.csproj.CoreCompileInputs.cache
+C:\Users\Arnie\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\obj\Release\MemoryUtilities.dll
+C:\Users\Arnie\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\obj\Release\MemoryUtilities.pdb
+C:\Users\Arnie\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\obj\Release\MemoryUtilities.csprojAssemblyReference.cache

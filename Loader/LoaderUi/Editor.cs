@@ -6,6 +6,11 @@ using System.Linq;
 
 namespace LoaderUi
 {
+
+    /*
+     * -> Add a static language analyzer
+     */
+
     class Editor
     {
         private ScintillaNET.Scintilla _codeArea;
@@ -25,12 +30,12 @@ namespace LoaderUi
                 InsertMatchedChars(e);
 
                 _autocompleteItems.RefreshWords();
-                if(e.Char == 32)
+                if (e.Char == 32)
                 {
                     var lastWord = _codeArea.GetWordFromPosition(currentPos - 1);
                     _autocompleteItems.AddWord(lastWord);
                 }
-                if(e.Char == 13)
+                if (e.Char == 13)
                 {
                     var lastWord = _codeArea.GetWordFromPosition(currentPos - 3);
                     _autocompleteItems.AddWord(lastWord);
@@ -154,7 +159,7 @@ namespace LoaderUi
             _codeArea.Styles[ScintillaNET.Style.Cpp.GlobalClass].ForeColor = Color.Crimson;
             _codeArea.Styles[ScintillaNET.Style.Cpp.StringRaw].ForeColor = Color.Yellow;
             _codeArea.Styles[ScintillaNET.Style.Cpp.HashQuotedString].ForeColor = Color.Yellow;
-            _codeArea.Styles[ScintillaNET.Style.Cpp.Number].ForeColor = Color.SteelBlue;
+            _codeArea.Styles[Style.Cpp.Number].ForeColor = Color.SteelBlue;
         }
 
         private void InitializeKeywords()

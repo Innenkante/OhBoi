@@ -11,4 +11,4 @@ C:\Users\Arnie\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\obj\Debug\MemoryUtili
 C:\Users\Mark\Desktop\OhBoi\Builds\Debug\MemoryUtilities.pdb
 C:\Users\Arnie\Desktop\OhBoi\Builds\Debug\MemoryUtilities.dll
 C:\Users\Arnie\Desktop\OhBoi\Builds\Debug\MemoryUtilities.pdb
-C:\Users\Arnie\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\obj\Debug\MemoryUtilities.csprojResolveAssemblyReference.cache
+C:\Users\Arnie\Desktop\OhBoi\Libraries\MIU\MemoryUtilities\obj\Debug\MemoryUtilities.csprojAssemblyReference.cache
