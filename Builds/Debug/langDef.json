@@ -354,5 +354,20 @@
 		"Word": "JSON.stringify",
 		"IsMember" : "true"
 	},
+	{
+		"Category": "3",
+		"Word": "file",
+		"IsMember": "false"
+	},
+	{
+		"Category": "1",
+		"Word": "file.create",
+		"IsMember": "true"
+	},
+	{
+		"Category": "1",
+		"Word": "file.log",
+		"IsMember": "true"
+	}
 	
 ]

@@ -75,6 +75,9 @@
     <ClInclude Include="JException.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="JLog.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -126,6 +129,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="JException.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="JLog.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

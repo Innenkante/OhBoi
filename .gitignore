@@ -74,3 +74,5 @@ JRuntime/JavascriptRuntime/Debug/jruntime.nativecodeanalysis.xml
 *.iobj
 
 *.ipdb
+
+Libraries/ChakraCore/

@@ -73,7 +73,7 @@ The runtime has a bunch of diffrent exported object and functions:
 * placeCallbackHook(int address, string format, function callback);
 ```
 function hookedFunction(arg1,arg2,arg3) { 
-	console.log("String:" + arg1 + ";Int:" + arg2.toString() + ";SomeOtherType:" + arg3.toString());
+	console.log("String:" + arg1 + ";Int:" + arg2.toString() + ";float:" + arg3.toString());
 }
 asm.placeCallbackHook(0x1234,"string,int,float",hookedFunction);
 ```
@@ -122,7 +122,11 @@ winapi.addExceptionHandler(exceptionHandler);
 ```
 removeExceptionHandler(exceptionHandler);
 ```
-
+## file
+* create(fileName)
+	* `file.create("example.txt");`
+* log(message)
+	* `file.log("Some message!");`
 
 
 # Types

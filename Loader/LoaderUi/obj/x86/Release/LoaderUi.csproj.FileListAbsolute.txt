@@ -14,3 +14,4 @@ C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\x86\Release\LoaderUi.pdb
 C:\Users\Arnie\Desktop\OhBoi\Builds\Release\LoaderUi.exe.config
 C:\Users\Arnie\Desktop\OhBoi\Builds\Release\LoaderUi.exe
 C:\Users\Arnie\Desktop\OhBoi\Builds\Release\LoaderUi.pdb
+C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\x86\Release\LoaderUi.csprojAssemblyReference.cache

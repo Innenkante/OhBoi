@@ -14,7 +14,7 @@
 #include "JManualCallback.h"
 #include "Resource.h"
 #include "JException.h"
-
+#include "JLog.h"
 
 namespace JExports
 {
@@ -556,6 +556,25 @@ namespace JExports
 
 	}
 
+	namespace JFile
+	{
+		JsValueRef CALLBACK JCreateFile(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
+		{
+			auto fileName = Globals::ValueParser->ToType<std::string>(arguments[1]);
+			JLog::Create(fileName);
+
+			return 0;
+		}
+
+		JsValueRef CALLBACK JLogToFile(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
+		{
+			auto message = Globals::ValueParser->ToType<std::string>(arguments[1]);
+			JLog::Log(message);
+
+			return 0;
+		}
+	}
+
 	void Initialize()
 	{
 		Globals::JavascriptRuntime->SetCurrentContext();
@@ -566,6 +585,7 @@ namespace JExports
 		auto protection = JObject("protection");
 		auto winapi = JObject("winapi");
 		auto callingConvention = JObject("callingConvention");
+		auto file = JObject("file");
 
 		console.AttachFunction(JFunction("alloc", JConsole::JAllocConsole));
 		console.AttachFunction(JFunction("setTitle", JConsole::JSetConsoleTitle));
@@ -628,6 +648,8 @@ namespace JExports
 		callingConvention.AttachProperty(JProperty("cdecl", Globals::ValueParser->ToJsValue<int>(1)));
 		callingConvention.AttachProperty(JProperty("thiscall", Globals::ValueParser->ToJsValue<int>(2)));
 
+		file.AttachFunction(JFunction("create", JFile::JCreateFile));
+		file.AttachFunction(JFunction("log", JFile::JLogToFile));
 
 		global.AttachObject(console);
 		global.AttachObject(memory);
@@ -635,5 +657,6 @@ namespace JExports
 		global.AttachObject(assembler);
 		global.AttachObject(winapi);
 		global.AttachObject(callingConvention);
+		global.AttachObject(file);
 	}
 }
