@@ -73,6 +73,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\Builds\Debug</OutDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include;</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(DXSDK_DIR)Lib\x86;</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -80,6 +82,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\..\Builds\Release</OutDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include;</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(DXSDK_DIR)Lib\x86;</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -171,6 +175,7 @@
     <ClInclude Include="JLog.h" />
     <ClInclude Include="JManualCallback.h" />
     <ClInclude Include="JTypes.h" />
+    <ClInclude Include="JUi.h" />
     <ClInclude Include="NativeExports.h" />
     <ClInclude Include="JRuntime.h" />
     <ClInclude Include="ArgumentResolver.h" />
@@ -193,6 +198,7 @@
     <ClCompile Include="JException.cpp" />
     <ClCompile Include="JLog.cpp" />
     <ClCompile Include="JManualCallback.cpp" />
+    <ClCompile Include="JUi.cpp" />
     <ClCompile Include="NativeExports.cpp" />
     <ClCompile Include="JRuntime.cpp" />
     <ClCompile Include="ArgumentResolver.cpp" />

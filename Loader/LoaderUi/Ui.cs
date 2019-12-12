@@ -104,6 +104,11 @@ namespace LoaderUi
                 {
                     CodeArea.Text = File.ReadAllText(Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi.js");
                 }
+                else
+                {
+                    File.WriteAllText(Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi.js", @"//yourcode");
+                    CodeArea.Text = File.ReadAllText(Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi.js");
+                }
             }
 
         }
