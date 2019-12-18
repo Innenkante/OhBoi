@@ -368,6 +368,95 @@
 		"Category": "1",
 		"Word": "file.log",
 		"IsMember": "true"
+	},
+	{
+		"Category": "0",
+		"Word": "return",
+		"IsMember": "false"
+	},
+	{
+		"Category": "3",
+		"Word": "ui",
+		"IsMember": "false"
+	},
+	{
+		"Category": "1",
+		"Word": "ui.create",
+		"IsMember": "true"
+	},
+	{
+		"Category": "1",
+		"Word": "ui.drawBox",
+		"IsMember": "true"
+	},
+	{
+		"Category": "1",
+		"Word": "ui.drawLine",
+		"IsMember": "true"
+	},
+	{
+		"Category": "1",
+		"Word": "ui.drawRectangle",
+		"IsMember": "true"
+	},
+	{
+		"Category": "0",
+		"Word": "new",
+		"IsMember": "false"
+	},
+	{
+		"Category": "0",
+		"Word": "this",
+		"IsMember": "false"
+	},
+	{
+		"Category": "3",
+		"Word": "color",
+		"IsMember": "false"
+	},
+	{
+		"Category": "1",
+		"Word": "color.black",
+		"IsMember": "true"
+	},
+	{
+		"Category": "1",
+		"Word": "color.red",
+		"IsMember": "true"
+	},
+	{
+		"Category": "1",
+		"Word": "color.green",
+		"IsMember": "true"
+	},
+	{
+		"Category": "1",
+		"Word": "color.blue",
+		"IsMember": "true"
+	},
+	{
+		"Category": "1",
+		"Word": "color.white",
+		"IsMember": "true"
+	},
+	{
+		"Category": "1",
+		"Word": "color.yellow",
+		"IsMember": "true"
+	},
+	{
+		"Category": "1",
+		"Word": "color.pink",
+		"IsMember": "true"
+	},
+	{
+		"Category": "1",
+		"Word": "color.cyan",
+		"IsMember": "true"
+	},
+	{
+		"Category": "1",
+		"Word": "winapi.setBreakpoint",
+		"IsMember": "true"
 	}
-	
 ]

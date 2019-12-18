@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "JUi.h"
+#include "Globals.h"
 
 JWindow JUi::targetWindow;
 JWindow JUi::overlayWindow;
@@ -9,6 +10,10 @@ MSG JUi::windowMessage;
 
 IDirect3D9Ex* JUi::d3dObject = {};
 IDirect3DDevice9Ex* JUi::d3dDevice = {};
+
+JsValueRef JUi::renderCallback;
+
+std::map<int, D3DCOLOR> JUi::colors;
 
 void JUi::Create()
 {
@@ -42,10 +47,44 @@ void JUi::Create()
 
 	InitializeDirectX();
 
+	InitializeColors();
+
 	InitializeMessageLoop();
+
+
 }
 
+void JUi::AttachRenderCallback(JsValueRef callback)
+{
+	renderCallback = callback;
+}
 
+void JUi::DrawBox(int x, int y, int width, int height,int colorId)
+{
+	D3DRECT rect = { x,y,x + width,y + height };
+	d3dDevice->Clear(1, &rect, D3DCLEAR_TARGET | D3DCLEAR_TARGET, colors[colorId], 0, 0);
+}
+
+void JUi::DrawLine(int x1, int y1, int x2, int y2, int thickness, int colorId)
+{
+	ID3DXLine* line;
+	D3DXCreateLine(d3dDevice, &line);
+	D3DXVECTOR2 dots[] = { D3DXVECTOR2(x1,y1), D3DXVECTOR2(x2,y2) };
+	line->SetWidth(thickness);
+
+	line->Begin();
+	line->Draw(dots, 2, colors[colorId]);
+	line->End();
+	line->Release();
+}
+
+void JUi::DrawRectangle(int x, int y, int width, int height, int thickness, int colorId)
+{
+	DrawLine(x, y, x + width, y, thickness, colorId); //  -------
+	DrawLine(x, y, x, y + height, thickness, colorId); // |
+	DrawLine(x, y + height, x + width, y + height, thickness, colorId); // -------
+	DrawLine(x + width, y + height, x + width, y, thickness, colorId); //  |
+}
 
 long __stdcall JUi::WinMessageCallback(HWND window, UINT Message, WPARAM wParam, LPARAM lParam)
 {
@@ -62,6 +101,18 @@ long __stdcall JUi::WinMessageCallback(HWND window, UINT Message, WPARAM wParam,
 		break;
 	}
 	return 0;
+}
+
+void JUi::InitializeColors()
+{
+	colors.insert(std::pair<int, D3DCOLOR>(0, D3DCOLOR_XRGB(0, 0, 0))); //black
+	colors.insert(std::pair<int, D3DCOLOR>(1, D3DCOLOR_XRGB(255, 0, 0))); //red
+	colors.insert(std::pair<int, D3DCOLOR>(2, D3DCOLOR_XRGB(0, 255, 0))); //green
+	colors.insert(std::pair<int, D3DCOLOR>(3, D3DCOLOR_XRGB(0, 0, 255))); //blue
+	colors.insert(std::pair<int, D3DCOLOR>(4, D3DCOLOR_XRGB(255, 255, 255))); //white
+	colors.insert(std::pair<int, D3DCOLOR>(5, D3DCOLOR_XRGB(255, 255, 0))); //yellow
+	colors.insert(std::pair<int, D3DCOLOR>(6, D3DCOLOR_XRGB(255, 0, 255))); //pink
+	colors.insert(std::pair<int, D3DCOLOR>(7, D3DCOLOR_XRGB(0, 255, 255))); //cyan
 }
 
 void JUi::InitializeMessageLoop()
@@ -85,22 +136,38 @@ int JUi::Render()
 	targetWindow.Refresh();
 	MoveWindow(overlayWindow.Hwnd, targetWindow.X, targetWindow.Y, targetWindow.Width, targetWindow.Height, true);
 
-	auto result = DwmExtendFrameIntoClientArea(overlayWindow.Hwnd, &(overlayWindow.Margin)); //ay this somewhat "works"
+	DwmExtendFrameIntoClientArea(overlayWindow.Hwnd, &(overlayWindow.Margin)); //ay this somewhat "works"
 
 	d3dDevice->BeginScene();
 
-	//JsCall...
+	//might wanna extract this method
+	Globals::JavascriptRuntime->SetCurrentContext();
+	JsValueRef undefined;
+	auto result = JsGetUndefinedValue(&undefined);
 
+	JsValueRef* refs = new JsValueRef[1];
+
+	refs[0] = undefined;
+
+	auto r = JsCallFunction(renderCallback, refs, 1, nullptr);
+	delete[] refs;
+
+
+	//
+
+	/*
 	ID3DXFont* pFont;
 	D3DXCreateFontA(d3dDevice, 50, 0, FW_NORMAL, 1, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "Arial", &pFont);
 	RECT FontPos;
 	FontPos.left = 100;
 	FontPos.top = 100;
 	pFont->DrawTextA(0, "Hello World", strlen("Hello World"), &FontPos, DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
-
+	*/
 
 	d3dDevice->EndScene();
 	d3dDevice->PresentEx(0, 0, 0, 0, 0);
+
+	Globals::JavascriptRuntime->DisposeContext();
 
 	return 0;
 }

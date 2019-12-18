@@ -7,7 +7,7 @@ OhBoi is a project which allows you to do inject and execute javascript in nativ
 
 # Features
 
-The runtime has a bunch of diffrent exported object and functions:
+The runtime has a bunch of diffrent functions...
 
 ## console:
 * alloc()
@@ -71,56 +71,60 @@ The runtime has a bunch of diffrent exported object and functions:
 * placeShellcodeHook(int address, string shellcode)
 	* `asm.placeShellcodeHook(0x1234,"add eax, edx;");`
 * placeCallbackHook(int address, string format, function callback);
-```
+```javascript
 function hookedFunction(arg1,arg2,arg3) { 
 	console.log("String:" + arg1 + ";Int:" + arg2.toString() + ";float:" + arg3.toString());
 }
 asm.placeCallbackHook(0x1234,"string,int,float",hookedFunction);
 ```
 * placeManualHook(int address, string prologue, string epilogue, function callback);
-```
+```javascript
 function hookedFunction() {
 	console.log("I am hooked!");
 }
 asm.placeManualHook(0x1234,"mov eax,0x5678; call eax; pushad; pushfd;","popfd; popad;",hookedFunction);
 ```
 * nativeCall initializeCall(int address, callingConvention, string returnFormat, string parameterFormat);
-```
+```javascript
 let nativeCall = asm.initializeCall(0x1234,callingConvention.stdcall,"int","string");
 let result = nativeCall.call("Hello World");
 ```
 
 ## winapi
 * module[] getModules();
-```
+```javascript
 for(var module of winapi.getModules())
 	console.log(module.name + "::" + module.path + "::" module.address.toString(16));
 ```
 * module getModule(moduleName);
-```
+```javascript
 let m = winapi.getModule("kernel32.dll");
 console.log(m.name + "::" + m.path + "::" + m.address.toString(16));
 ```
 * export[] getExports(moduleName);
-```
+```javascript
 for(var export in winapi.getExports("kernel32.dll"))
 	console.log(export.name + "::" + export.address.toString(16));
 ```
 * export getExport(moduleName, exportName);
-```
+```javascript
 let loadLib = winapi.getExport("kernel32.dll","LoadLibraryA");
 console.log(loadLib.name + "::" + loadLib.address.toString(16));
 ```
 * addExceptionHandler(exceptionHandler);
-```
+```javascript
 function exceptionHandler(exception) {
 	console.log(exception.location.toString(16) + "::" + exception.address.toString(16) + "::" + exception.operation + "::" + exception.type);
 }
 winapi.addExceptionHandler(exceptionHandler);
 ```
 * removeExceptionHandler(exceptionHandler);
+```javascript
+winapi.removeExceptionHandler(exceptionHandler);
 ```
-removeExceptionHandler(exceptionHandler);
+* setBreakpoint()
+```javascript
+winapi.setBreakpoint();
 ```
 ## file
 * create(fileName)
@@ -128,10 +132,7 @@ removeExceptionHandler(exceptionHandler);
 * log(message)
 	* `file.log("Some message!");`
 
-
-# Types
-
-The runtime has a bunch of different types exported:
+# Constants
 
 ## protection:
 * EXECUTE
@@ -143,6 +144,23 @@ The runtime has a bunch of different types exported:
 * READWRITE
 * WRITECOPY
 
+## callingConvention
+* stdcall
+* cdecl
+* thiscall
+
+## color
+* black
+* red
+* green
+* blue
+* white
+* yellow
+* pink
+* cyan
+
+# Types
+
 ## module:
 * name
 * path
@@ -152,16 +170,14 @@ The runtime has a bunch of different types exported:
 * name
 * address
 
-## callingConvention
-* stdcall
-* cdecl
-* thiscall
-
 ## nativeCall:
 * address
 * call(arguments) 
 
+# Miscellanous
+
 ## format:
+In regards to the argument passing in the initializeCall function.
 * delemiter: "," 
 * int
 * float

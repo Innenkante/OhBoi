@@ -41,18 +41,17 @@ void JRuntime::RunScript()
 	auto error = JsRunScript(scriptCode.c_str(), sourceContext, L"", &scriptReturnValue);
 	if (error)
 	{
-		JsValueRef exception, lineNumberRef, columnNumberRef;
+		JsValueRef exception, lineNumberRef;
 		JsGetAndClearException(&exception);
 
 		JsPropertyIdRef lineNumber, columnNumber;
 
 		JsGetPropertyIdFromName(L"line", &lineNumber);
-		JsGetPropertyIdFromName(L"column", &columnNumber);
 
 		JsGetProperty(exception, lineNumber, &lineNumberRef);
-		JsGetProperty(exception, columnNumber, &columnNumberRef);
 
-		MessageBoxA(NULL, (Globals::ValueParser->ToType<std::string>(exception) + "on line: " + std::to_string(Globals::ValueParser->ToType<int>(lineNumberRef)) + " at: " + std::to_string(Globals::ValueParser->ToType<int>(columnNumber))).c_str(), "Exception", 0);
+		auto text = Globals::ValueParser->ToType<std::string>(exception);
+		MessageBoxA(NULL, (text + "on line: " + std::to_string(Globals::ValueParser->ToType<int>(lineNumberRef))).c_str(), "Exception", 0);
 
 		DisposeContext();
 	}

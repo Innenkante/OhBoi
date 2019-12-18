@@ -15,6 +15,7 @@
 #include "Resource.h"
 #include "JException.h"
 #include "JLog.h"
+#include "JUi.h"
 
 namespace JExports
 {
@@ -137,7 +138,7 @@ namespace JExports
 			auto address = (bool*)Globals::ValueParser->ToType<int>(arguments[1]);
 			auto arr = Globals::ArrayParser->ToType<bool>(arguments[2]);
 
-			for (int i = 0; i < arr.size();i++)
+			for (int i = 0; i < arr.size(); i++)
 			{
 				*(address + i * sizeof(bool)) = arr[i];
 			}
@@ -156,17 +157,17 @@ namespace JExports
 		JsValueRef CALLBACK JReadIntArray(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
 		{
 			auto address = Globals::ValueParser->ToType<int>(arguments[1]);
-			auto count  = Globals::ValueParser->ToType<int>(arguments[2]);
+			auto count = Globals::ValueParser->ToType<int>(arguments[2]);
 			auto elements = new int[count];
 
 			memcpy(elements, (int*)address, count * sizeof(int));
 
-			std::vector<int> tmp; 
+			std::vector<int> tmp;
 			tmp.assign(elements, elements + count);
 
 			delete[] elements;
 
- 			return Globals::ArrayParser->ToJsValue<int>(tmp);
+			return Globals::ArrayParser->ToJsValue<int>(tmp);
 		}
 
 		JsValueRef CALLBACK JReadFloatArray(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
@@ -217,9 +218,9 @@ namespace JExports
 			return Globals::ArrayParser->ToJsValue<double>(tmp);
 		}
 
-		
 
-		
+
+
 
 
 
@@ -269,13 +270,13 @@ namespace JExports
 
 			JsValueRef jsArray;
 			JsCreateArray(modules.size(), &jsArray);
-			
-			
+
+
 			for (int i = 0; i < modules.size(); i++)
 			{
 				auto module = modules[i];
 				JObject jModule("module");
-				
+
 				jModule.AttachProperty(JProperty("name", Globals::ValueParser->ToJsValue<std::string>(module.Name)));
 				jModule.AttachProperty(JProperty("path", Globals::ValueParser->ToJsValue<std::string>(module.Path)));
 				jModule.AttachProperty(JProperty("address", Globals::ValueParser->ToJsValue<int>(module.DllBase)));
@@ -314,7 +315,7 @@ namespace JExports
 
 			return jModule.Value;
 		}
-		
+
 		JsValueRef CALLBACK JGetExports(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
 		{
 			auto modules = PEBParser().GetModules();
@@ -352,7 +353,7 @@ namespace JExports
 			jExport.AttachProperty(JProperty("address", Globals::ValueParser->ToJsValue<int>(0x0000)));
 
 			JsSetIndexedProperty(jsArray, 0, jExport.Value);
-			
+
 			return jsArray;
 		}
 
@@ -397,12 +398,22 @@ namespace JExports
 
 			JException::AddHandler(callback);
 
-			return 0;	
+			return 0;
 		}
 
 		JsValueRef CALLBACK JRemoveExceptionHandler(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
 		{
 			JException::RemoveHandler();
+
+			return 0;
+		}
+
+		JsValueRef CALLBACK JSetBreakpoint(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
+		{
+			__asm
+			{
+				int 3;
+			}
 
 			return 0;
 		}
@@ -434,7 +445,7 @@ namespace JExports
 
 			JsValueRef undefined;
 			auto result = JsGetUndefinedValue(&undefined);
-			
+
 			std::vector<JsValueRef> functionParameters;
 
 			functionParameters.push_back(undefined);
@@ -442,14 +453,14 @@ namespace JExports
 			for (auto p : ArgumentResolver(parameterFormat).ResolveArgsToJsVector(params))
 				functionParameters.push_back(p);
 
-			
+
 			auto error = JsCallFunction(callback, functionParameters.data(), functionParameters.size(), NULL);
 
 			if (error != 0)
 			{
 				MessageBoxA(0, "JsCallFunction failed.", "Hooking engine", 0);
 			}
-			
+
 			Globals::JavascriptRuntime->DisposeContext(); //clean up the context
 		}
 
@@ -466,7 +477,7 @@ namespace JExports
 
 			JCallback* c = new JCallback(count, format.c_str(), callback, (JCallback::JCallbackHandler)JsCallbackHookHandler); //making sure this nigga stays where he is.
 			Hook().PlaceCallbackHook(adress, c);
-			
+
 			return 0;
 		}
 
@@ -507,15 +518,15 @@ namespace JExports
 
 			JCall* jCall = new JCall(adress, paramCount, convention, returnFormat.c_str(), parameterFormat.c_str());
 
-			if(!JCall::ExistsFunctionCall(adress))
+			if (!JCall::ExistsFunctionCall(adress))
 				JCall::AddFunctionCall(jCall);
 
 			JCall::InitializeJCall(jCall);
-			
+
 			JObject jNativeFunctionCall("nativeFunctionCall");
 			jNativeFunctionCall.AttachProperty(JProperty("address", Globals::ValueParser->ToJsValue<int>(adress)));
 			jNativeFunctionCall.AttachFunction(JFunction("call", JAsm::JCallFunction));
-			
+
 			return jNativeFunctionCall.Value;
 		}
 
@@ -575,6 +586,60 @@ namespace JExports
 		}
 	}
 
+	namespace JUserInterface
+	{
+		JsValueRef CALLBACK JCreateUi(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
+		{
+			JUi::AttachRenderCallback(arguments[1]);
+			JUi::Create();
+
+			return 0;
+		}
+
+		JsValueRef CALLBACK JDrawBox(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
+		{
+			auto x = Globals::ValueParser->ToType<int>(arguments[1]);
+			auto y = Globals::ValueParser->ToType<int>(arguments[2]);
+			auto w = Globals::ValueParser->ToType<int>(arguments[3]);
+			auto h = Globals::ValueParser->ToType<int>(arguments[4]);
+			auto colorId = Globals::ValueParser->ToType<int>(arguments[5]);
+
+			JUi::DrawBox(x, y, w, h, colorId);
+
+			return 0;
+		}
+
+		JsValueRef CALLBACK JDrawLine(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
+		{
+			auto x1 = Globals::ValueParser->ToType<int>(arguments[1]);
+			auto y1 = Globals::ValueParser->ToType<int>(arguments[2]);
+			auto x2 = Globals::ValueParser->ToType<int>(arguments[3]);
+			auto y2 = Globals::ValueParser->ToType<int>(arguments[4]);
+			auto thickness = Globals::ValueParser->ToType<int>(arguments[5]);
+			auto colorId = Globals::ValueParser->ToType<int>(arguments[6]);
+
+			JUi::DrawLine(x1, y1, x2, y2, thickness, colorId);
+
+			return 0;
+		}
+
+		JsValueRef CALLBACK JDrawRectangle(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
+		{
+			auto x = Globals::ValueParser->ToType<int>(arguments[1]);
+			auto y = Globals::ValueParser->ToType<int>(arguments[2]);
+			auto w = Globals::ValueParser->ToType<int>(arguments[3]);
+			auto h = Globals::ValueParser->ToType<int>(arguments[4]);
+			auto thickness = Globals::ValueParser->ToType<int>(arguments[5]);
+			auto colorId = Globals::ValueParser->ToType<int>(arguments[6]);
+
+			JUi::DrawRectangle(x, y, w, h, thickness, colorId);
+
+			return 0;
+		}
+
+
+	}
+
 	void Initialize()
 	{
 		Globals::JavascriptRuntime->SetCurrentContext();
@@ -586,6 +651,10 @@ namespace JExports
 		auto winapi = JObject("winapi");
 		auto callingConvention = JObject("callingConvention");
 		auto file = JObject("file");
+
+		auto color = JObject("color");
+		auto ui = JObject("ui");
+
 
 		console.AttachFunction(JFunction("alloc", JConsole::JAllocConsole));
 		console.AttachFunction(JFunction("setTitle", JConsole::JSetConsoleTitle));
@@ -608,7 +677,7 @@ namespace JExports
 		memory.AttachFunction(JFunction("writeFloatArray", JMemory::JWriteFloatArray));
 		memory.AttachFunction(JFunction("writeBoolArray", JMemory::JWriteBoolArray));
 		memory.AttachFunction(JFunction("writeDoubleArray", JMemory::JWriteDoubleArray));
-		
+
 		memory.AttachFunction(JFunction("readIntArray", JMemory::JReadIntArray));
 		memory.AttachFunction(JFunction("readFloatArray", JMemory::JReadFloatArray));
 		memory.AttachFunction(JFunction("readBoolArray", JMemory::JReadBoolArray));
@@ -644,12 +713,29 @@ namespace JExports
 		winapi.AttachFunction(JFunction("addExceptionHandler", JWinApi::JAddExceptionHandler));
 		winapi.AttachFunction(JFunction("removeExceptionHandler", JWinApi::JRemoveExceptionHandler));
 
+		winapi.AttachFunction(JFunction("setBreakpoint", JWinApi::JSetBreakpoint));
+
 		callingConvention.AttachProperty(JProperty("stdcall", Globals::ValueParser->ToJsValue<int>(0)));
 		callingConvention.AttachProperty(JProperty("cdecl", Globals::ValueParser->ToJsValue<int>(1)));
 		callingConvention.AttachProperty(JProperty("thiscall", Globals::ValueParser->ToJsValue<int>(2)));
 
 		file.AttachFunction(JFunction("create", JFile::JCreateFile));
 		file.AttachFunction(JFunction("log", JFile::JLogToFile));
+
+		color.AttachProperty(JProperty("black", Globals::ValueParser->ToJsValue<int>(0)));
+		color.AttachProperty(JProperty("red", Globals::ValueParser->ToJsValue<int>(1)));
+		color.AttachProperty(JProperty("green", Globals::ValueParser->ToJsValue<int>(2)));
+		color.AttachProperty(JProperty("blue", Globals::ValueParser->ToJsValue<int>(3)));
+		color.AttachProperty(JProperty("white", Globals::ValueParser->ToJsValue<int>(4)));
+		color.AttachProperty(JProperty("yellow", Globals::ValueParser->ToJsValue<int>(5)));
+		color.AttachProperty(JProperty("pink", Globals::ValueParser->ToJsValue<int>(6)));
+		color.AttachProperty(JProperty("cyan", Globals::ValueParser->ToJsValue<int>(7)));
+
+
+		ui.AttachFunction(JFunction("create", JUserInterface::JCreateUi));
+		ui.AttachFunction(JFunction("drawBox", JUserInterface::JDrawBox));
+		ui.AttachFunction(JFunction("drawLine", JUserInterface::JDrawLine));
+		ui.AttachFunction(JFunction("drawRectangle", JUserInterface::JDrawRectangle));
 
 		global.AttachObject(console);
 		global.AttachObject(memory);
@@ -658,5 +744,8 @@ namespace JExports
 		global.AttachObject(winapi);
 		global.AttachObject(callingConvention);
 		global.AttachObject(file);
+		global.AttachObject(color);
+		global.AttachObject(ui);
+
 	}
 }

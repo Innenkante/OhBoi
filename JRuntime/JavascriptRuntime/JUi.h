@@ -1,6 +1,8 @@
 #pragma once
 #include <Windows.h>
 #include <string>
+#include <map>
+
 #define D3D_DEBUG_INFO
 
 #include <d3d9.h>
@@ -41,10 +43,14 @@ public:
 	static void Create();
 	static void AttachRenderCallback(JsValueRef callback);
 
+	static void DrawBox(int x, int y, int width, int height,int colorId);
+	static void DrawLine(int x1, int y1, int x2, int y2, int thickness, int colorId);
+	static void DrawRectangle(int x, int y, int width, int height, int thickness, int colorId);
 private:
 
 	static long __stdcall WinMessageCallback(HWND window, UINT Message, WPARAM wParam, LPARAM lParam);
 
+	static void InitializeColors();
 	static void InitializeMessageLoop();
 	static int Render();
 
@@ -58,4 +64,7 @@ private:
 	static IDirect3D9Ex* d3dObject;
 	static IDirect3DDevice9Ex* d3dDevice;
 	
+	static JsValueRef renderCallback;
+
+	static std::map<int, D3DCOLOR> colors;
 };
