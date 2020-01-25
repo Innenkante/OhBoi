@@ -32,6 +32,7 @@ class PEBParser
 {
 public:
 	std::vector<Module> GetModules();
-private:
 	PTEB GetTEB();
+private:
+	
 };

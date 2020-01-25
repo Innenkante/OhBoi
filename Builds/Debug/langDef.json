@@ -456,7 +456,7 @@
 	},
 	{
 		"Category": "1",
-		"Word": "winapi.setBreakpoint",
+		"Word": "winapi.raiseBreakpoint",
 		"IsMember": "true"
 	}
 ]

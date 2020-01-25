@@ -81,6 +81,9 @@
     <ClInclude Include="JUi.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="JDebug.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -138,6 +141,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="JUi.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="JDebug.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

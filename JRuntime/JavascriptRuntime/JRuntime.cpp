@@ -84,3 +84,4 @@ JsValueRef JRuntime::GetCurrentContext()
 {
 	return context;
 }
+

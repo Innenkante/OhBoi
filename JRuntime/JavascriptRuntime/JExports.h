@@ -408,14 +408,12 @@ namespace JExports
 			return 0;
 		}
 
-		JsValueRef CALLBACK JSetBreakpoint(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
+		JsValueRef CALLBACK JRaiseInterrupt(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
 		{
-			__asm
+			__asm 
 			{
-				int 3;
+				int3;
 			}
-
-			return 0;
 		}
 	}
 
@@ -713,7 +711,7 @@ namespace JExports
 		winapi.AttachFunction(JFunction("addExceptionHandler", JWinApi::JAddExceptionHandler));
 		winapi.AttachFunction(JFunction("removeExceptionHandler", JWinApi::JRemoveExceptionHandler));
 
-		winapi.AttachFunction(JFunction("setBreakpoint", JWinApi::JSetBreakpoint));
+		winapi.AttachFunction(JFunction("raiseInterrupt", JWinApi::JRaiseInterrupt));
 
 		callingConvention.AttachProperty(JProperty("stdcall", Globals::ValueParser->ToJsValue<int>(0)));
 		callingConvention.AttachProperty(JProperty("cdecl", Globals::ValueParser->ToJsValue<int>(1)));
