@@ -412,7 +412,7 @@ namespace JExports
 		{
 			__asm 
 			{
-				int3;
+				int 3;
 			}
 		}
 	}

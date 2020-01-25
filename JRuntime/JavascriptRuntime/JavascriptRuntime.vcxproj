@@ -170,7 +170,6 @@
     <ClInclude Include="Hook.h" />
     <ClInclude Include="JCall.h" />
     <ClInclude Include="JCallback.h" />
-    <ClInclude Include="JDebug.h" />
     <ClInclude Include="JException.h" />
     <ClInclude Include="JExports.h" />
     <ClInclude Include="JLog.h" />
@@ -196,7 +195,6 @@
     <ClCompile Include="JavascriptRuntime.cpp" />
     <ClCompile Include="JCall.cpp" />
     <ClCompile Include="JCallback.cpp" />
-    <ClCompile Include="JDebug.cpp" />
     <ClCompile Include="JException.cpp" />
     <ClCompile Include="JLog.cpp" />
     <ClCompile Include="JManualCallback.cpp" />
