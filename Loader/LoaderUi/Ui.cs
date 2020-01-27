@@ -19,7 +19,7 @@ namespace LoaderUi
     {
         public string SelectedExecutable { get; set; }
 
-        Loader _loader; 
+        Loader _loader;
 
         public void Log(string message)
         {
@@ -49,14 +49,14 @@ namespace LoaderUi
 
         private void LoadButton_Click(object sender, EventArgs e)
         {
-            if (_loader == null)
+            if (_loader == null || !_loader.IsProcessAvailable())
             {
                 MessageBox.Show("Run the process first...", "OhBoi");
                 return;
             }
 
 
-            if(LoadOnEntryPointCheckbox.Checked)
+            if (LoadOnEntryPointCheckbox.Checked)
             {
                 _loader.ResumeProcess();
 
@@ -100,14 +100,21 @@ namespace LoaderUi
             {
                 ExecutablePathTextbox.Text = Path.GetFileName(SelectedExecutable);
 
-                if (File.Exists(Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi.js"))
+                if (!Directory.Exists(Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi-Project"))
+                    Directory.CreateDirectory(Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi-Project");
+
+                if (!File.Exists(Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi-Project\\ohboi.d.ts"))
+                    File.Copy(".\\ohboi.d.ts", Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi-Project\\ohboi.d.ts");
+
+
+                if (File.Exists(Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi-Project\\ohboi.js"))
                 {
-                    CodeArea.Text = File.ReadAllText(Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi.js");
+                    CodeArea.Text = File.ReadAllText(Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi-Project\\ohboi.js");
                 }
                 else
                 {
-                    File.WriteAllText(Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi.js", @"//yourcode");
-                    CodeArea.Text = File.ReadAllText(Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi.js");
+                    File.WriteAllText(Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi-Project\\ohboi.js", @"//@ts-check" + Environment.NewLine + @"//yourcode");
+                    CodeArea.Text = File.ReadAllText(Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi-Project\\ohboi.js");
                 }
             }
 
@@ -115,13 +122,13 @@ namespace LoaderUi
 
         private void SaveFileButton_Click(object sender, EventArgs e)
         {
-            if(SelectedExecutable == null)
+            if (SelectedExecutable == null)
             {
                 MessageBox.Show("Select an executable first...", "OhBoi");
                 return;
             }
 
-            File.WriteAllText(Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi.js", CodeArea.Text);
+            File.WriteAllText(Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi-Project\\ohboi.js", CodeArea.Text);
 
             Log("File saved...");
         }
@@ -148,9 +155,9 @@ namespace LoaderUi
                 MessageBox.Show("Select an executable first...");
         }
 
-        private void HelpButton_Click(object sender, EventArgs e)
+        private void ReloadFile_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("To be done....");
+            CodeArea.Text = File.ReadAllText(Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi-Project\\ohboi.js");
         }
     }
 }

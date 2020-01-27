@@ -37,9 +37,8 @@
             this.SelectExecutableButton = new MetroFramework.Controls.MetroButton();
             this.ExecutablePathTextbox = new MetroFramework.Controls.MetroTextBox();
             this.LoadOnEntryPointCheckbox = new MetroFramework.Controls.MetroCheckBox();
-            this.HelpButton = new MetroFramework.Controls.MetroButton();
+            this.ReloadFile = new MetroFramework.Controls.MetroButton();
             this.RunExecutable = new MetroFramework.Controls.MetroButton();
-            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             this.SuspendLayout();
             // 
             // CodeArea
@@ -53,7 +52,7 @@
             this.CodeArea.Lexer = ScintillaNET.Lexer.Cpp;
             this.CodeArea.Location = new System.Drawing.Point(23, 146);
             this.CodeArea.Name = "CodeArea";
-            this.CodeArea.Size = new System.Drawing.Size(1087, 275);
+            this.CodeArea.Size = new System.Drawing.Size(1246, 573);
             this.CodeArea.TabIndex = 10;
             this.CodeArea.Text = "//your code here";
             this.CodeArea.UseTabs = true;
@@ -76,7 +75,7 @@
             // 
             // 
             this.LogTextbox.CustomButton.Image = null;
-            this.LogTextbox.CustomButton.Location = new System.Drawing.Point(1011, 2);
+            this.LogTextbox.CustomButton.Location = new System.Drawing.Point(1057, 2);
             this.LogTextbox.CustomButton.Name = "";
             this.LogTextbox.CustomButton.Size = new System.Drawing.Size(73, 73);
             this.LogTextbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -85,7 +84,7 @@
             this.LogTextbox.CustomButton.UseSelectable = true;
             this.LogTextbox.CustomButton.Visible = false;
             this.LogTextbox.Lines = new string[0];
-            this.LogTextbox.Location = new System.Drawing.Point(23, 427);
+            this.LogTextbox.Location = new System.Drawing.Point(23, 725);
             this.LogTextbox.MaxLength = 32767;
             this.LogTextbox.Multiline = true;
             this.LogTextbox.Name = "LogTextbox";
@@ -95,7 +94,7 @@
             this.LogTextbox.SelectionLength = 0;
             this.LogTextbox.SelectionStart = 0;
             this.LogTextbox.ShortcutsEnabled = true;
-            this.LogTextbox.Size = new System.Drawing.Size(1087, 78);
+            this.LogTextbox.Size = new System.Drawing.Size(1246, 78);
             this.LogTextbox.TabIndex = 11;
             this.LogTextbox.UseCustomBackColor = true;
             this.LogTextbox.UseCustomForeColor = true;
@@ -184,16 +183,16 @@
             this.LoadOnEntryPointCheckbox.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.LoadOnEntryPointCheckbox.UseSelectable = true;
             // 
-            // HelpButton
+            // ReloadFile
             // 
-            this.HelpButton.Location = new System.Drawing.Point(266, 111);
-            this.HelpButton.Name = "HelpButton";
-            this.HelpButton.Size = new System.Drawing.Size(237, 28);
-            this.HelpButton.TabIndex = 24;
-            this.HelpButton.Text = "Help";
-            this.HelpButton.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.HelpButton.UseSelectable = true;
-            this.HelpButton.Click += new System.EventHandler(this.HelpButton_Click);
+            this.ReloadFile.Location = new System.Drawing.Point(266, 111);
+            this.ReloadFile.Name = "ReloadFile";
+            this.ReloadFile.Size = new System.Drawing.Size(237, 28);
+            this.ReloadFile.TabIndex = 24;
+            this.ReloadFile.Text = "Reload file";
+            this.ReloadFile.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.ReloadFile.UseSelectable = true;
+            this.ReloadFile.Click += new System.EventHandler(this.ReloadFile_Click);
             // 
             // RunExecutable
             // 
@@ -210,9 +209,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1133, 528);
+            this.ClientSize = new System.Drawing.Size(1292, 826);
             this.Controls.Add(this.RunExecutable);
-            this.Controls.Add(this.HelpButton);
+            this.Controls.Add(this.ReloadFile);
             this.Controls.Add(this.LoadOnEntryPointCheckbox);
             this.Controls.Add(this.ExecutablePathTextbox);
             this.Controls.Add(this.SaveFileButton);
@@ -241,9 +240,8 @@
         private MetroFramework.Controls.MetroButton SelectExecutableButton;
         private MetroFramework.Controls.MetroTextBox ExecutablePathTextbox;
         private MetroFramework.Controls.MetroCheckBox LoadOnEntryPointCheckbox;
-        private MetroFramework.Controls.MetroButton HelpButton;
+        private MetroFramework.Controls.MetroButton ReloadFile;
         private MetroFramework.Controls.MetroButton RunExecutable;
-        private System.Windows.Forms.HelpProvider helpProvider1;
     }
 }
 

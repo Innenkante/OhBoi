@@ -86,7 +86,7 @@ namespace LoaderUi
 
             var moduleToLoad = Path.GetFullPath("JavascriptRuntime.dll");
             var procToInvoke = "LoadJavascriptFile";
-            var fileToLoad = Path.GetDirectoryName(_selectedProcessPath) + "\\OhBoi.js";
+            var fileToLoad = Path.GetDirectoryName(_selectedProcessPath) + "\\ohboi.js";
 
             var moduleName = WinApi.VirtualAllocEx(process.Handle, IntPtr.Zero, 256, WinApi.AllocationType.Commit, WinApi.MemoryProtection.ExecuteReadWrite);
             var procName = WinApi.VirtualAllocEx(process.Handle, IntPtr.Zero, 256, WinApi.AllocationType.Commit, WinApi.MemoryProtection.ExecuteReadWrite);
@@ -159,9 +159,14 @@ namespace LoaderUi
 
                 var loadJsFile = m.GetExportedFunction("JavascriptRuntime.dll", "LoadJavascriptFile").GetFunction();
 
-                m.CreateSingleParameterFunction(loadJsFile.Address).Call(Path.GetDirectoryName(_selectedProcessPath) + "\\OhBoi.js");
+                m.CreateSingleParameterFunction(loadJsFile.Address).Call(Path.GetDirectoryName(_selectedProcessPath) + "\\OhBoi-Project\\ohboi.js");
 
             return true;
+        }
+
+        public bool IsProcessAvailable()
+        {
+            return System.Diagnostics.Process.GetProcesses().Count(p => p.Id == _runningProcessPid) != 0;
         }
 
         private string GetHash(string file)
