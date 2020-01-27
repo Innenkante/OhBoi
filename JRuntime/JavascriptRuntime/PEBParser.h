@@ -2,8 +2,9 @@
 #include <Windows.h>
 #include <winnt.h>
 #include <winternl.h>
-
+#include <string>
 #include <vector>
+
 class ExportedFunction
 {
 public:

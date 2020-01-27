@@ -36,7 +36,7 @@ declare global {
          * Invokes the native function
          * @param params The parameters for the function 
          */
-        export call(...params: any): any;
+        call(...params: any): any;
     }
 
     /**
@@ -46,15 +46,15 @@ declare global {
         /**
          * Man fuck js docs already, Name of the module
          */
-        export public name: string;
+        public name: string;
         /**
          * Path of the module
          */
-        export public path: string;
+        public path: string;
         /**
          * Baseaddress of the module
          */
-        export public address: string;
+        public address: string;
     }
 
     /**
@@ -64,11 +64,11 @@ declare global {
         /**
          * Name of the function exported
          */
-        export public name: string;
+        public name: string;
         /**
          * Address of the function exported
          */
-        export public address: number;
+        public address: number;
     }
 
     /**
@@ -78,19 +78,19 @@ declare global {
         /**
          * The location at which the exception occurs
          */
-        export public location: number;
+        public location: number;
         /**
          * The address of the exception
          */
-        export public address:number;
+        public address:number;
         /**
          * What kind of operation happend
          */
-        export public operation:string;
+        public operation:string;
         /**
          * The exception type
          */
-        export public type:string;
+        public type:string;
     }
 
     /**

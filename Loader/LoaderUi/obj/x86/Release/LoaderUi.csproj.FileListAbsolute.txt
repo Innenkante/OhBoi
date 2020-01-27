@@ -6,7 +6,6 @@ C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\bin\x86\Release\ScintillaNET.xml
 C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\x86\Release\LoaderUi.Properties.Resources.resources
 C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\x86\Release\LoaderUi.Ui.resources
 C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\x86\Release\LoaderUi.csproj.GenerateResource.cache
-C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\x86\Release\LoaderUi.csproj.CoreCompileInputs.cache
 C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\x86\Release\LoaderUi.csproj.Fody.CopyLocal.cache
 C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\x86\Release\LoaderUi.csproj.CopyComplete
 C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\x86\Release\LoaderUi.exe
