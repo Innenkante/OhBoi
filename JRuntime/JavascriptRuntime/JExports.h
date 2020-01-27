@@ -21,7 +21,7 @@ namespace JExports
 {
 	namespace JConsole
 	{
-		JsValueRef CALLBACK JAllocConsole(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
+		JsValueRef CALLBACK JCreateLog(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
 		{
 			AllocConsole();
 			FILE* out;
@@ -31,14 +31,14 @@ namespace JExports
 
 		}
 
-		JsValueRef CALLBACK JFreeConsole(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
+		JsValueRef CALLBACK JFreeLog(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
 		{
 			FreeConsole();
 
 			return 0;
 		}
 
-		JsValueRef CALLBACK JSetConsoleTitle(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
+		JsValueRef CALLBACK JSetLogTitle(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
 		{
 			SetConsoleTitleA(Globals::ValueParser->ToType<std::string>(arguments[1]).c_str());
 
@@ -46,7 +46,7 @@ namespace JExports
 		}
 
 
-		JsValueRef CALLBACK JLog(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
+		JsValueRef CALLBACK JWriteLog(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
 		{
 			std::cout << Globals::ValueParser->ToType<std::string>(arguments[1]).c_str() << std::endl;
 
@@ -275,7 +275,7 @@ namespace JExports
 			for (int i = 0; i < modules.size(); i++)
 			{
 				auto module = modules[i];
-				JObject jModule("module");
+				JObject jModule("nativeModule");
 
 				jModule.AttachProperty(JProperty("name", Globals::ValueParser->ToJsValue<std::string>(module.Name)));
 				jModule.AttachProperty(JProperty("path", Globals::ValueParser->ToJsValue<std::string>(module.Path)));
@@ -294,7 +294,7 @@ namespace JExports
 
 			auto moduleName = Globals::ValueParser->ToType<std::string>(arguments[1]);
 
-			JObject jModule("module");
+			JObject jModule("nativeModule");
 
 			for (auto m : modules)
 			{
@@ -333,7 +333,7 @@ namespace JExports
 
 					for (int i = 0; i < exports.size(); i++)
 					{
-						JObject jExport("export");
+						JObject jExport("nativeExport");
 						auto e = exports[i];
 						jExport.AttachProperty(JProperty("name", Globals::ValueParser->ToJsValue<std::string>(e.Name)));
 						jExport.AttachProperty(JProperty("address", Globals::ValueParser->ToJsValue<int>(e.Adress)));
@@ -348,7 +348,7 @@ namespace JExports
 			JsValueRef jsArray;
 			JsCreateArray(modules.size(), &jsArray);
 
-			JObject jExport("export");
+			JObject jExport("nativeExport");
 			jExport.AttachProperty(JProperty("name", Globals::ValueParser->ToJsValue<std::string>("Not found")));
 			jExport.AttachProperty(JProperty("address", Globals::ValueParser->ToJsValue<int>(0x0000)));
 
@@ -375,7 +375,7 @@ namespace JExports
 						if (e.Name == functionName)
 						{
 
-							JObject jExport("export");
+							JObject jExport("nativeExport");
 							jExport.AttachProperty(JProperty("name", Globals::ValueParser->ToJsValue<std::string>(e.Name)));
 							jExport.AttachProperty(JProperty("address", Globals::ValueParser->ToJsValue<int>(e.Adress)));
 
@@ -385,7 +385,7 @@ namespace JExports
 				}
 			}
 
-			JObject jExport("export");
+			JObject jExport("nativeExport");
 			jExport.AttachProperty(JProperty("name", Globals::ValueParser->ToJsValue<std::string>("Not found")));
 			jExport.AttachProperty(JProperty("address", Globals::ValueParser->ToJsValue<int>(0x0000)));
 
@@ -483,7 +483,7 @@ namespace JExports
 		{
 			Globals::JavascriptRuntime->SetCurrentContext();
 
-			int address = Globals::ValueParser->ToType<int>(JObject("nativeFunctionCall", arguments[0]).GetPropertyValueFromName("address"));
+			int address = Globals::ValueParser->ToType<int>(JObject("nativeFunction", arguments[0]).GetPropertyValueFromName("address"));
 			auto call = JCall::GetFunctionCall(address);
 
 			ArgumentResolver paramParser(call->Format);
@@ -505,7 +505,7 @@ namespace JExports
 			return returnParser.ResolveReturnValueToJsValue(call->ReturnValue);
 		}
 
-		JsValueRef CALLBACK JInitializeCall(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
+		JsValueRef CALLBACK JCreateFunction(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
 		{
 			auto adress = Globals::ValueParser->ToType<int>(arguments[1]);
 			auto convention = static_cast<JCall::CallingConvention>(Globals::ValueParser->ToType<int>(arguments[2]));
@@ -521,7 +521,7 @@ namespace JExports
 
 			JCall::InitializeJCall(jCall);
 
-			JObject jNativeFunctionCall("nativeFunctionCall");
+			JObject jNativeFunctionCall("nativeFunction");
 			jNativeFunctionCall.AttachProperty(JProperty("address", Globals::ValueParser->ToJsValue<int>(adress)));
 			jNativeFunctionCall.AttachFunction(JFunction("call", JAsm::JCallFunction));
 
@@ -575,7 +575,7 @@ namespace JExports
 			return 0;
 		}
 
-		JsValueRef CALLBACK JLogToFile(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
+		JsValueRef CALLBACK JWriteToFile(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
 		{
 			auto message = Globals::ValueParser->ToType<std::string>(arguments[1]);
 			JLog::Log(message);
@@ -642,7 +642,7 @@ namespace JExports
 	{
 		Globals::JavascriptRuntime->SetCurrentContext();
 		auto global = Globals::JavascriptRuntime->GetGlobalObject();
-		auto console = JObject("console");
+		auto log = JObject("log");
 		auto memory = JObject("memory");
 		auto assembler = JObject("asm");
 		auto protection = JObject("protection");
@@ -654,10 +654,10 @@ namespace JExports
 		auto ui = JObject("ui");
 
 
-		console.AttachFunction(JFunction("alloc", JConsole::JAllocConsole));
-		console.AttachFunction(JFunction("setTitle", JConsole::JSetConsoleTitle));
-		console.AttachFunction(JFunction("free", JConsole::JFreeConsole));
-		console.AttachFunction(JFunction("log", JConsole::JLog));
+		log.AttachFunction(JFunction("create", JConsole::JCreateLog));
+		log.AttachFunction(JFunction("setTitle", JConsole::JSetLogTitle));
+		log.AttachFunction(JFunction("free", JConsole::JFreeLog));
+		log.AttachFunction(JFunction("write", JConsole::JWriteLog));
 
 		memory.AttachFunction(JFunction("writeInt", JMemory::JWriteInt));
 		memory.AttachFunction(JFunction("writeBool", JMemory::JReadBool));
@@ -700,7 +700,7 @@ namespace JExports
 		assembler.AttachFunction(JFunction("writeShellcode", JAsm::JWriteShellcode));
 		assembler.AttachFunction(JFunction("placeShellcodeHook", JAsm::JPlaceShellCodeHook));
 		assembler.AttachFunction(JFunction("placeCallbackHook", JAsm::JPlaceCallbackHook));
-		assembler.AttachFunction(JFunction("initializeCall", JAsm::JInitializeCall));
+		assembler.AttachFunction(JFunction("createFunction", JAsm::JCreateFunction));
 		assembler.AttachFunction(JFunction("placeManualHook", JAsm::JPlaceManualHook));
 
 		winapi.AttachFunction(JFunction("getModules", JWinApi::JGetModules));
@@ -718,7 +718,7 @@ namespace JExports
 		callingConvention.AttachProperty(JProperty("thiscall", Globals::ValueParser->ToJsValue<int>(2)));
 
 		file.AttachFunction(JFunction("create", JFile::JCreateFile));
-		file.AttachFunction(JFunction("log", JFile::JLogToFile));
+		file.AttachFunction(JFunction("write", JFile::JWriteToFile));
 
 		color.AttachProperty(JProperty("black", Globals::ValueParser->ToJsValue<int>(0)));
 		color.AttachProperty(JProperty("red", Globals::ValueParser->ToJsValue<int>(1)));
@@ -735,7 +735,7 @@ namespace JExports
 		ui.AttachFunction(JFunction("drawLine", JUserInterface::JDrawLine));
 		ui.AttachFunction(JFunction("drawRectangle", JUserInterface::JDrawRectangle));
 
-		global.AttachObject(console);
+		global.AttachObject(log);
 		global.AttachObject(memory);
 		global.AttachObject(protection);
 		global.AttachObject(assembler);

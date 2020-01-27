@@ -107,7 +107,7 @@ long __stdcall JException::NativeExceptionHandler(PEXCEPTION_POINTERS exception)
 	std::vector<JsValueRef> params;
 	params.push_back(undefined);
 
-	JObject jException("exception");
+	JObject jException("nativeException");
 
 	JException jsException(exception);
 

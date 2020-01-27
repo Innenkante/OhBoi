@@ -41,7 +41,7 @@
 	},
 	{
 		"Category" : "3",
-		"Word": "console",
+		"Word": "log",
 		"IsMember" : "false"
 	},
 	{
@@ -71,22 +71,22 @@
 	},
 	{
 		"Category" : "1",
-		"Word": "console.alloc",
+		"Word": "log.create",
 		"IsMember" : "true"
 	},
 	{
 		"Category" : "1",
-		"Word": "console.free",
+		"Word": "log.free",
 		"IsMember" : "true"
 	},
 	{
 		"Category" : "1",
-		"Word": "console.setTitle",
+		"Word": "log.setTitle",
 		"IsMember" : "true"
 	},
 	{
 		"Category" : "1",
-		"Word": "console.log",
+		"Word": "log.write",
 		"IsMember" : "true"
 	},
 	{
@@ -181,7 +181,7 @@
 	},
 	{
 		"Category" : "1",
-		"Word": "asm.initializeCall",
+		"Word": "asm.createFunction",
 		"IsMember" : "true"
 	},
 	{

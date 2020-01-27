@@ -3,25 +3,36 @@
 OhBoi is a project which allows you to inject and execute javascript in native processes with an API aimed at reverse engineering and game hacking
 
 ## Modules
+
 * [console](###console)
 * [memory](###memory)
 * [asm](###asm)
 * [winapi](###winapi)
 * [file](###file)
 * [ui](###ui)
+
 ## Constants
+
 * [protection](###protection)
 * [callingConvention](###callingConvention)
 * [color](###color)
+
 ## Types
-* [module](###module)
-* [export](###export)
-* [nativeCall](###nativeCall)
+
+* [nativeModule](###nativeModule)
+* [nativeExport](###nativeExport)
+* [nativeFunction](###nativeFunction)
+* [nativeException](###nativeException)
+
 ## Miscellanous
+
 * [format](###format)
+
 ## Examples
+
 TODO!
 ***
+
 ### console:
 
 * alloc()
@@ -29,7 +40,7 @@ TODO!
 	
 
 ``` javascript
-		console.alloc();
+console.alloc();
 ```
 
 * setTitle(title)
@@ -146,36 +157,20 @@ writeDouble(0x1234, 1.0)
 writeIntArray(0x1234, [1, 2, 3, 4])
 ```
 
-* writeFloatArray(address, value)
-
-	
-
-``` javascript
-writeFloatArray(0x1234, [1.0, 2.0, 3.0, 4.0])
-```
-
-* writeBoolArray(address, value)
-
-	
-
-``` javascript
-writeBoolArray(0x1234, [true, false, true, false])
-```
-
-* writeDoubleArray(address, value)
-
-	
-
-``` javascript
-writeDoubleArray(0x1234, [1.1, 1.2, 1.3, 1.4])
-```
-
 * array readIntArray(address, value); 
 
 	
 
 ``` javascript
 readIntArray(0x1234, 4)
+```
+
+* writeFloatArray(address, value)
+
+	
+
+``` javascript
+writeFloatArray(0x1234, [1.0, 2.0, 3.0, 4.0])
 ```
 
 * array readFloatArray(address, value)
@@ -186,12 +181,28 @@ readIntArray(0x1234, 4)
 readFloatArray(0x1234, 4)
 ```
 
+* writeBoolArray(address, value)
+
+	
+
+``` javascript
+writeBoolArray(0x1234, [true, false, true, false])
+```
+
 * array readBoolArray(address, value)
 
 	
 
 ``` javascript
 readBoolArray(0x1234, 4)
+```
+
+* writeDoubleArray(address, value)
+
+	
+
+``` javascript
+writeDoubleArray(0x1234, [1.1, 1.2, 1.3, 1.4])
 ```
 
 * array readDoubleArray(address, value)
@@ -270,11 +281,11 @@ function hookedFunction() {
 asm.placeManualHook(0x1234, "mov eax,0x5678; call eax; pushad; pushfd;", "popfd; popad;", hookedFunction);
 ```
 
-* nativeCall initializeCall(int address, callingConvention, string returnFormat, string parameterFormat); 
+* nativeFunction createFunction(int address, callingConvention, string returnFormat, string parameterFormat); 
 
 ``` javascript
-let nativeCall = asm.initializeCall(0x1234, callingConvention.stdcall, "int", "string");
-let result = nativeCall.call("Hello World");
+let nativeFunction = asm.createFunction(0x1234, callingConvention.stdcall, "int", "string");
+let result = nativeFunction.call("Hello World");
 ```
 
 ### winapi
@@ -342,12 +353,12 @@ winapi.raiseInterrupt();
 file.create("example.txt")
 ```
 
-* log(message)
+* write(message)
 
 	
 
 ``` javascript
-file.log("Some message!")
+file.write("Some message!")
 ```
 
 ### ui
@@ -386,7 +397,7 @@ ui.create(renderer);
 
 ``` javascript
 function renderer() {
-    ui.drawBox(100, 100, 50, 50, color.red);
+    ui.drawRectangle(100, 100, 50, 50, color.red);
 }
 
 ui.create(renderer);
@@ -424,27 +435,58 @@ ui.create(renderer);
 
 ## Types
 
-### module:
+### nativeModule
 
 * name
 * path
 * address
 
-### export:
+```typescript
+class nativeModule {
+    public name: string;
+    public path: string;
+    public address: string;
+}
+```
+### nativeExport
 
 * name
 * address
 
-### nativeCall:
+```typescript
+class nativeExport {
+    public name: string;
+    public address: number;
+}
+```
+### nativeFunction:
 
-* address
 * call(arguments) 
+```typescript
+class nativeFunction {
+    call(...params: any): any;
+}
+```
+
+### nativeException
+* location
+* address
+* operation
+* type
+```typescript
+class nativeException {
+    public location: number;
+    public address:number;
+    public operation:string;
+    public type:string;
+}
+```
 
 ## Miscellanous
 
-### format:
+### format
 
-In regards to the argument passing in the initializeCall function, as shown above the delemiter used is a simple comma ",". The types available are listed below.
+In regards to the argument passing in the initializeCall function, as shown above the delemiter used is a simple comma ", ". The types available are listed below.
 
 * delemiter: ", " 
 * int
