@@ -400,6 +400,11 @@
 		"IsMember": "true"
 	},
 	{
+		"Category": "1",
+		"Word": "ui.drawText",
+		"IsMember": "true"
+	},
+	{
 		"Category": "0",
 		"Word": "new",
 		"IsMember": "false"

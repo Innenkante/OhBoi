@@ -105,7 +105,7 @@ declare global {
          * Sets the title of the console
          * @param title The title to set
          */
-        export function setTile(title: string): void;
+        export function setTitle(title: string): void;
         /**
          * Closes the console
          */
@@ -403,7 +403,15 @@ declare global {
          * @param color Color of the rectangle
          */
         export function drawRectangle(x: number, y: number, width: number, heigt: number,thickness:number,color: color);
-
+        /**
+         * Draws a string
+         * @param x X Position
+         * @param y Y Position
+         * @param size Font size
+         * @param color Text color
+         * @param text The text to draw
+         */
+        export function drawText(x:number, y:number, size:number, color:color, text:string);
     }
 
 }

@@ -86,6 +86,16 @@ void JUi::DrawRectangle(int x, int y, int width, int height, int thickness, int 
 	DrawLine(x + width, y + height, x + width, y, thickness, colorId); //  |
 }
 
+void JUi::DrawString(int x, int y, int size, int colorId, std::string text)
+{
+	ID3DXFont* font;
+	D3DXCreateFont(d3dDevice, size, 0, FW_NORMAL, 1, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Arial", &font);
+	RECT pos;
+	pos.left = x;
+	pos.top = y;
+	font->DrawTextA(0, text.c_str(), text.length(), &pos, DT_NOCLIP, colors[colorId]);
+}
+
 long __stdcall JUi::WinMessageCallback(HWND window, UINT Message, WPARAM wParam, LPARAM lParam)
 {
 	switch (Message)

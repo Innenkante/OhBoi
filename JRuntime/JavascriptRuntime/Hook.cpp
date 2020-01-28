@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Hook.h"
 
-void Hook::PlaceShellcodeHook(int adress, std::string shellcode)
+bool Hook::PlaceShellcodeHook(int adress, std::string shellcode)
 {
 	auto compiler = Assembler(KS_ARCH_X86, KS_MODE_32);
 	auto code = compiler.Assemble(shellcode);
@@ -23,6 +23,8 @@ void Hook::PlaceShellcodeHook(int adress, std::string shellcode)
 	Assembler::Nop(source, 5, instructionLength);
 
 	Assembler::SetProtection(adress, instructionLength, old);
+
+	return code.size() > 0;
 }
 
 void Hook::PlaceCallbackHook(int adress, JCallback* callback)
@@ -53,11 +55,10 @@ void Hook::PlaceCallbackHook(int adress, JCallback* callback)
 	Assembler::Nop(source, 5, instructionLength);
 
 	Assembler::SetProtection(adress, instructionLength, old);
-
 	//NOTE: It fucking works.
 }
 
-void Hook::PlaceManualCallbackHook(int address, JManualCallback * callback)
+bool Hook::PlaceManualCallbackHook(int address, JManualCallback * callback)
 {
 	auto assembler = Assembler(KS_ARCH_X86, KS_MODE_32);
 
@@ -83,6 +84,8 @@ void Hook::PlaceManualCallbackHook(int address, JManualCallback * callback)
 	Assembler::Nop(source, 5, overridableInstructions);
 
 	Assembler::SetProtection(address, overridableInstructions, old);
+
+	return (prologue.size() > 0 && epilogue.size() > 0);
 }
 
 int Hook::GetOverrideableInstructionLength(int adress)

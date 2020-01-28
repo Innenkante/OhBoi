@@ -46,6 +46,7 @@ public:
 	static void DrawBox(int x, int y, int width, int height,int colorId);
 	static void DrawLine(int x1, int y1, int x2, int y2, int thickness, int colorId);
 	static void DrawRectangle(int x, int y, int width, int height, int thickness, int colorId);
+	static void DrawString(int x, int y, int size, int colorId, std::string text);
 private:
 
 	static long __stdcall WinMessageCallback(HWND window, UINT Message, WPARAM wParam, LPARAM lParam);

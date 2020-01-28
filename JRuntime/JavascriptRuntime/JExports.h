@@ -424,15 +424,15 @@ namespace JExports
 			auto adress = Globals::ValueParser->ToType<int>(arguments[1]);
 			auto shellcode = Assembler(KS_ARCH_X86, KS_MODE_32).Assemble(Globals::ValueParser->ToType<std::string>(arguments[2]));
 			memcpy((void*)(adress), shellcode.data(), shellcode.size());
-			return 0;
+			return Globals::ValueParser->ToJsValue<bool>(shellcode.size() > 0);
 		}
 
 		JsValueRef CALLBACK JPlaceShellCodeHook(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
 		{
 			auto adress = Globals::ValueParser->ToType<int>(arguments[1]);
 
-			Hook().PlaceShellcodeHook(adress, Globals::ValueParser->ToType<std::string>(arguments[2]));
-			return 0;
+			bool successfull = Hook().PlaceShellcodeHook(adress, Globals::ValueParser->ToType<std::string>(arguments[2]));
+			return Globals::ValueParser->ToJsValue<bool>(successfull);
 		}
 
 		void _stdcall JsCallbackHookHandler(int argCount, int* format, int* params, JsValueRef callback)
@@ -558,9 +558,9 @@ namespace JExports
 			JManualCallback* manualCallback = new JManualCallback(prologe.c_str(), epiloge.c_str(), callback, (JManualCallback::JManualCallbackHandler)ManualCallbackHandler);
 
 
-			Hook().PlaceManualCallbackHook(address, manualCallback);
+			bool sucessfull = Hook().PlaceManualCallbackHook(address, manualCallback);
 
-			return 0;
+			return Globals::ValueParser->ToJsValue<bool>(sucessfull);
 		}
 
 	}
@@ -634,6 +634,24 @@ namespace JExports
 
 			return 0;
 		}
+
+		JsValueRef CALLBACK JDrawText(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argCount, void* callbackState)
+		{
+			//ui.drawText(x,y,size,color,text);
+
+
+			auto x = Globals::ValueParser->ToType<int>(arguments[1]);
+			auto y = Globals::ValueParser->ToType<int>(arguments[2]);
+			auto size = Globals::ValueParser->ToType<int>(arguments[3]);
+			auto colorId = Globals::ValueParser->ToType<int>(arguments[4]);
+			auto text = Globals::ValueParser->ToType<std::string>(arguments[5]);
+
+			JUi::DrawString(x, y, size, colorId, text);
+
+			return 0;
+		}
+
+
 
 
 	}
@@ -734,6 +752,7 @@ namespace JExports
 		ui.AttachFunction(JFunction("drawBox", JUserInterface::JDrawBox));
 		ui.AttachFunction(JFunction("drawLine", JUserInterface::JDrawLine));
 		ui.AttachFunction(JFunction("drawRectangle", JUserInterface::JDrawRectangle));
+		ui.AttachFunction(JFunction("drawText", JUserInterface::JDrawText));
 
 		global.AttachObject(log);
 		global.AttachObject(memory);
