@@ -158,6 +158,7 @@ namespace LoaderUi
         private void ReloadFile_Click(object sender, EventArgs e)
         {
             CodeArea.Text = File.ReadAllText(Path.GetDirectoryName(SelectedExecutable) + "\\OhBoi-Project\\ohboi.js");
+            Log("Reloaded file...");
         }
     }
 }

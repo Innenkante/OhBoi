@@ -5,6 +5,11 @@
 	  "IsMember" : "false"
 	},
 	{
+	  "Category": "0",
+	  "Word": "else",
+	  "IsMember" : "false"
+	},
+	{
 		"Category" : "0",
 		"Word": "function",
 		"IsMember" : "false"
