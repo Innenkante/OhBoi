@@ -4,7 +4,7 @@ OhBoi is a project which allows you to inject and execute javascript in native p
 
 ## Modules
 
-* [console](###console)
+* [log](###log)
 * [memory](###memory)
 * [asm](###asm)
 * [winapi](###winapi)
@@ -29,18 +29,17 @@ OhBoi is a project which allows you to inject and execute javascript in native p
 * [format](###format)
 
 ## Examples
+ * [MW3-ESP](##MW3-ESP)
 
-TODO!
-***
 
-### console:
+### log:
 
-* alloc()
+* create()
 
 	
 
 ``` javascript
-console.alloc();
+log.create();
 ```
 
 * setTitle(title)
@@ -48,7 +47,7 @@ console.alloc();
 	
 
 ``` javascript
-console.setTitle("My cool app")
+log.setTitle("My cool app")
 ```
 
 * free()
@@ -56,15 +55,15 @@ console.setTitle("My cool app")
 	
 
 ``` javascript
-console.free()
+log.free()
 ```
 
-* log(message)
+* write(message)
 
 	
 
 ``` javascript
-console.log("No errors")
+log.write("No errors")
 ```
 
 ### memory
@@ -403,6 +402,13 @@ function renderer() {
 ui.create(renderer);
 ```
 
+* drawText(x, y, size, color, text)
+```javascript
+function renderer() {
+    ui.drawText(0,0,20,color.cyan,"Hello World!");
+}
+```
+
 ## Constants
 
 ### protection:
@@ -497,3 +503,100 @@ In regards to the argument passing in the initializeCall function, as shown abov
 * wstring
 * none
 
+## Examples
+
+### MW3-ESP
+```javascript
+//@ts-check
+//yourcode
+function Entity(clientBase, entityBase) {
+    this.ClientAddress = clientBase;
+    this.EntityAddress = entityBase;
+
+    this.Id = memory.readInt(clientBase);
+    this.Valid = memory.readInt(clientBase + 4);
+    this.Alive = memory.readInt(entityBase + 464);
+    this.UserName = memory.readString(clientBase + 0xC, 16);
+    this.Team = memory.readInt(clientBase + 0x1C);
+    this.Coords = memory.readFloatArray(entityBase + 0x14, 3);
+}
+
+let parameterChunk = memory.alloc(20);
+
+let getScreenMatrix = asm.createFunction(0x004B6350, callingConvention.cdecl, "int", "none");
+let worldToScreen = asm.createFunction(0x004E5FC0, callingConvention.cdecl, "none", "int,int,int,int");
+
+function getPlayers() {
+    var players = [];
+
+    for (var i = 0; i < 18; i++) {
+        var clientBase = 0x009FC748 + i * 0x560;
+        var entityBase = 0x00A08630 + i * 0x1F8;
+
+        players.push(new Entity(clientBase, entityBase));
+    }
+
+    return players;
+}
+
+
+function getScreenPosition(vector3) {
+    let matrix = getScreenMatrix.call();
+    memory.writeFloatArray(parameterChunk, vector3);
+
+    worldToScreen.call(0, matrix, parameterChunk, parameterChunk + 12)
+    return memory.readFloatArray(parameterChunk + 12, 2);
+
+}
+
+function draw3DLine(position, x1, y1, z1, x2, y2, z2, c) {
+    var pointPos1 = [position[0] + x1, position[1] + y1, position[2] + z1];
+    var pointPos2 = [position[0] + x2, position[1] + y2, position[2] + z2];
+
+    var xy1 = getScreenPosition(pointPos1);
+    var xy2 = getScreenPosition(pointPos2);
+
+    ui.drawLine(xy1[0], xy1[1], xy2[0], xy2[1], 2, c);
+
+}
+
+function draw3DBox(position, width, height, c) {
+    //bottom
+    draw3DLine(position, -width, -width, 0, width, -width, 0, c);
+    draw3DLine(position, -width, -width, 0, -width, width, 0, c);
+    draw3DLine(position, width, width, 0, width, -width, 0, c);
+    draw3DLine(position, width, width, 0, -width, width, 0, c);
+
+    //middle
+    draw3DLine(position, -width, -width, 0, -width, -width, height, c);
+    draw3DLine(position, -width, width, 0, -width, width, height, c);
+    draw3DLine(position, width, -width, 0, width, -width, height, c);
+    draw3DLine(position, width, width, 0, width, width, height, c);
+
+    //top
+    draw3DLine(position, -width, -width, height, width, -width, height, c);
+    draw3DLine(position, -width, -width, height, -width, width, height, c);
+    draw3DLine(position, width, width, height, width, -width, height, c);
+    draw3DLine(position, width, width, height, -width, width, height, c);
+}
+
+function renderer() {
+    //ui.drawText(0,0,14,color.pink,"OhBoi loaded...");
+    var players = getPlayers().filter(e => e.UserName != "Boboo99");
+    var me = getPlayers().find(p => p.UserName == "Boboo99");
+
+    for (var i = 0; i < players.length; i++) {
+        
+        if (players[i].Valid != 0 && players[i].Alive & 0x1) {
+			players[i].Coords[2] -= 20;
+            if (players[i].Team == me.Team)
+                draw3DBox(players[i].Coords, 20, 80, color.green);
+            else
+                draw3DBox(players[i].Coords, 20, 80, color.red);
+        }
+
+    }
+}
+
+ui.create(renderer);
+```
