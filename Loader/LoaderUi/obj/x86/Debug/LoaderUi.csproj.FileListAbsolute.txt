@@ -9,11 +9,11 @@ C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\x86\Debug\LoaderUi.Ui.resources
 C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\x86\Debug\LoaderUi.csproj.GenerateResource.cache
 C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\x86\Debug\LoaderUi.csproj.Fody.CopyLocal.cache
 C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\x86\Debug\LoaderUi.csproj.CopyComplete
-C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\x86\Debug\LoaderUi.exe
-C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\x86\Debug\LoaderUi.pdb
 C:\Users\Arnie\Desktop\Builds\Debug\LoaderUi.exe.config
 C:\Users\Arnie\Desktop\Builds\Debug\LoaderUi.exe
 C:\Users\Arnie\Desktop\Builds\Debug\LoaderUi.pdb
-C:\Users\Arnie\Desktop\OhBoi\Builds\Debug\LoaderUi.exe.config
-C:\Users\Arnie\Desktop\OhBoi\Builds\Debug\LoaderUi.exe
-C:\Users\Arnie\Desktop\OhBoi\Builds\Debug\LoaderUi.pdb
+C:\Users\Arnie\Desktop\OhBoi\Builds\Debug\OhBoi.exe.config
+C:\Users\Arnie\Desktop\OhBoi\Builds\Debug\OhBoi.exe
+C:\Users\Arnie\Desktop\OhBoi\Builds\Debug\OhBoi.pdb
+C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\x86\Debug\OhBoi.exe
+C:\Users\Arnie\Desktop\OhBoi\Loader\LoaderUi\obj\x86\Debug\OhBoi.pdb
