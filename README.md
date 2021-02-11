@@ -1,5 +1,7 @@
 # OhBoi
 
+Ohboi let's you hack applications using javascript.
+
 OhBoi is a project which allows you to inject and execute javascript in native processes with an API aimed at reverse engineering and game hacking
 
 ## Modules
