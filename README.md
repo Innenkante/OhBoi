@@ -6,32 +6,32 @@ OhBoi is a project which allows you to inject and execute javascript in native p
 
 ## Modules
 
-* [log](###log)
-* [memory](###memory)
-* [asm](###asm)
-* [winapi](###winapi)
-* [file](###file)
-* [ui](###ui)
+* [log](#log)
+* [memory](#memory)
+* [asm](#asm)
+* [winapi](#winapi)
+* [file](#file)
+* [ui](#ui)
 
 ## Constants
 
-* [protection](###protection)
-* [callingConvention](###callingConvention)
-* [color](###color)
+* [protection](#protection)
+* [callingConvention](#callingConvention)
+* [color](#color)
 
 ## Types
 
-* [nativeModule](###nativeModule)
-* [nativeExport](###nativeExport)
-* [nativeFunction](###nativeFunction)
-* [nativeException](###nativeException)
+* [nativeModule](#nativeModule)
+* [nativeExport](#nativeExport)
+* [nativeFunction](#nativeFunction)
+* [nativeException](#nativeException)
 
 ## Miscellanous
 
-* [format](###format)
+* [format](#format)
 
 ## Examples
- * [MW3-ESP](##MW3-ESP)
+ * [MW3-ESP](#MW3-ESP)
 
 
 ### log:
